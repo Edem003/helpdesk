@@ -215,8 +215,8 @@
                                   </div>
                                 </div>
                                 <div class="row">
-                                  <div class="col-md-7 mt-4">
-                                    <p class="mb-0 small">&copy;  <script>
+                                  <div class="col-md-12 mt-4">
+                                    <p class="mb-0 small">Copyright &copy;  <script>
                                       document.write(new Date().getFullYear())
                                     </script>.  IT Corporate, Lands Commission. </p>
                                   </div>

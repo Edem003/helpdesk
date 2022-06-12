@@ -423,8 +423,7 @@ $(document).ready(function()
                                   <li><span class="text-secondary"><b>Region:</b> ${response.desktop_support_users[i].region}</span></li>
                                   <li><span class="text-secondary"><b>E-mail:</b> ${response.desktop_support_users[i].email}</span></li>
                                   <li><span class="text-secondary"><b>Telephone:</b> ${response.desktop_support_users[i].phone}</span></li>
-                                  <li><span class="text-secondary"><b>Status:</b> Offline</span></li>
-                                  <li><span class="text-secondary"><b>Last Login:</b> 1/1/2022 12:00pm</span></li>
+                                  <li><span class="text-secondary"><b>Created on:</b> ${response.software_users[i].created_at}</span></li>
                                 </ul>
                               </div>
                             </div>
@@ -689,8 +688,7 @@ $(document).ready(function()
                                   <li><span class="text-secondary"><b>Region:</b> ${response.networking_users[i].region}</span></li>
                                   <li><span class="text-secondary"><b>E-mail:</b> ${response.networking_users[i].email}</span></li>
                                   <li><span class="text-secondary"><b>Telephone:</b> ${response.networking_users[i].phone}</span></li>
-                                  <li><span class="text-secondary"><b>Status:</b> Offline</span></li>
-                                  <li><span class="text-secondary"><b>Last Login:</b> 1/1/2022 12:00pm</span></li>
+                                  <li><span class="text-secondary"><b>Created on:</b> ${response.software_users[i].created_at}</span></li>
                                 </ul>
                               </div>
                             </div>
@@ -955,8 +953,7 @@ $(document).ready(function()
                                   <li><span class="text-secondary"><b>Region:</b> ${response.hardware_users[i].region}</span></li>
                                   <li><span class="text-secondary"><b>E-mail:</b> ${response.hardware_users[i].email}</span></li>
                                   <li><span class="text-secondary"><b>Telephone:</b> ${response.hardware_users[i].phone}</span></li>
-                                  <li><span class="text-secondary"><b>Status:</b> Offline</span></li>
-                                  <li><span class="text-secondary"><b>Last Login:</b> 1/1/2022 12:00pm</span></li>
+                                  <li><span class="text-secondary"><b>Created on:</b> ${response.software_users[i].created_at}</span></li>
                                 </ul>
                               </div>
                             </div>
