@@ -32,7 +32,6 @@
     <link rel="stylesheet" type="text/css" href="assets/css/chartist.css">
     <link rel="stylesheet" type="text/css" href="assets/css/owlcarousel.css">
     <link rel="stylesheet" type="text/css" href="assets/css/prism.css">
-    <link rel="stylesheet" type="text/css" href="assets/print-js/print.css">
     <!-- Plugins css Ends-->
     <!-- Bootstrap css-->
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
@@ -52,7 +51,7 @@
 
   </head>
   
-  @if((date('H30') >= 930) AND (date('H30') <= 1530))
+  @if((date('H') >= 10) AND (date('H') <= 15))
   <body class="custom-scrollbar" style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
   @else
   <body class="custom-scrollbar dark-only" style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
@@ -79,7 +78,7 @@
               <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
               <li><a class="text-dark" href="lockscreen"><i data-feather="lock"></i></a></li>
               <li>
-                @if((date('H30') >= 930) && (date('H30') <= 1530))
+                @if((date('H') >= 10) && (date('H') <= 15))
                 <div class="mode"><i class="fa fa-moon-o"></i></div>
                 @else
                 <div class="mode"><i class="fa fa-lightbulb-o"></i></div>

@@ -210,4 +210,16 @@ class CheckLoginController extends Controller
             return view('pages.lockscreen', ['page_name' => 'Account Locked']);
         }
     }
+
+    public function knowledgebase_details()
+    {
+        if (session()->get('check_login') == null)
+        {
+            return redirect("welcome");
+        }
+        else
+        {
+            return view('pages.knowledgebase-details', ['page_name' => 'Knowledgebase']);
+        }
+    }
 }

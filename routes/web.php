@@ -173,3 +173,6 @@ Route::get('barcode', function () {
 Route::get('/phpinfo', function() {
     return phpinfo();
 });
+
+//other links
+Route::get('/knowledgebase-details', [CheckLoginController::class, 'knowledgebase_details']);
