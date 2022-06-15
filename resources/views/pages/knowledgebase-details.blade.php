@@ -36,10 +36,69 @@
                             <div class="mb-3">
                                 <button class="btn btn-primary" type="submit"><i class="fas fa-arrow-circle-right small"></i> Submit</button>
                             </div>
-                            <h6 class="mb-4 mt-5">REPLIES <span class="text-secondary">(3)</span></h6>
+                            <h6 class="mb-4 mt-5">ANSWERS <span class="text-secondary">(3)</span></h6>
+                            <div class="chat-history chat-msg-box custom-scrollbar small">
+                            <ul>
+                              <li class="clearfix d-flex justify-content-start">
+                                <div class="card col-xl-10" style="border-radius: 5px">
+                                  <div class="card-body">
+                                    <div class="message my-message"><img class="rounded-circle float-start chat-user-img img-30" src="../assets/images/user/3.png" alt="">
+                                      <span>Are we meeting today? Project has been already finished and I have results to show you.</span>
+                                      <div class="row mt-2">
+                                        <div class="col-md-9">
+                                          <h5 class="small">Shane Brown</h5>
+                                          <p class="small mt-n-2" style="font-size: 10px">2021-06-10 15:08:60</p>
+                                        </div>
+                                        <div class="col-md-3 text-end">
+                                          <button class="btn btn-light btn-sm text-secondary small" type="submit" style="font-size: 12px"><i class="fas fa-thumbs-up"></i> 4</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                              <li class="clearfix d-flex justify-content-end">
+                              <div class="card col-xl-10" style="border-radius: 5px">
+                                  <div class="card-body">
+                                    <div class="message my-message"><img class="rounded-circle float-start chat-user-img img-30" src="../assets/images/user/3.png" alt="">
+                                      <span>Well I am not sure. The rest of the team is not here yet. Maybe in an hour or so?</span>
+                                      <div class="row mt-2">
+                                        <div class="col-md-9">
+                                          <h5 class="small">Jane Doe</h5>
+                                          <p class="small mt-n-2" style="font-size: 10px">2021-06-10 15:08:60</p>
+                                        </div>
+                                        <div class="col-md-3 text-end">
+                                          <button class="btn btn-light btn-sm text-secondary small" type="submit" style="font-size: 12px"><i class="fas fa-thumbs-up"></i> 1</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                              <li class="clearfix d-flex justify-content-start">
+                                <div class="card col-xl-10" style="border-radius: 5px">
+                                  <div class="card-body">
+                                    <div class="message my-message"><img class="rounded-circle float-start chat-user-img img-30" src="../assets/images/user/3.png" alt="">
+                                      <span>Are we meeting today? Project has been already finished and I have results to show you.</span>
+                                      <div class="row mt-2">
+                                        <div class="col-md-9">
+                                          <h5 class="small">Mary Arthur</h5>
+                                          <p class="small mt-n-2" style="font-size: 10px">2021-06-10 15:08:60</p>
+                                        </div>
+                                        <div class="col-md-3 text-end">
+                                          <button class="btn btn-light btn-sm text-secondary small" type="submit" style="font-size: 12px"><i class="fas fa-thumbs-up"></i> 0</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                            </ul>
+                            </div>
                           </div>
                         </div>
-                        <br><br>
+                        <br>
+                        <br>
                       </div>    
                     </div>
                   </div>

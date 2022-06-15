@@ -1,26 +1,10 @@
 $(document).ready(function()
 {
-  $.ajax({
-      url: "get_staff_management_json",
-      method: "GET",
-      contentType: "application/json",
-      DataType: "json",
-      AccessControlAllowOrigin: "*",
-      Processing: "True",
-      success: function(response)
-      {
-        console.log(response)
-      }
-  });
-})
-
-$(document).ready(function()
-{
     let dataSet = [];
     var num = '';
 
     $.ajax({
-        url: "get_staff_management_json",
+        url: "get_staff_count_json",
         method: "GET",
         contentType: "application/json",
         DataType: "json",
@@ -300,7 +284,7 @@ $(document).ready(function()
     var num = '';
 
     $.ajax({
-        url: "get_staff_management_json",
+        url: "get_staff_count_json",
         method: "GET",
         contentType: "application/json",
         DataType: "json",
@@ -566,7 +550,7 @@ $(document).ready(function()
     var num = '';
 
     $.ajax({
-        url: "get_staff_management_json",
+        url: "get_staff_count_json",
         method: "GET",
         contentType: "application/json",
         DataType: "json",
@@ -831,7 +815,7 @@ $(document).ready(function()
     var num = '';
 
     $.ajax({
-        url: "get_staff_management_json",
+        url: "get_staff_count_json",
         method: "GET",
         contentType: "application/json",
         DataType: "json",

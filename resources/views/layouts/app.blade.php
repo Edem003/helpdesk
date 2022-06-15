@@ -249,7 +249,6 @@
     <script src="js/app.js"></script>
 
     @if ($page_name == 'Dashboard')
-    <script src="js/dashboard.js"></script>
     <script type="text/javascript">
       var options3 = {
           chart: {
@@ -453,7 +452,6 @@
     @endif
     
     @if ($page_name == 'My Tasks')
-    <script src="js/tasks.js"></script>
     <script src="js/handle-tickets.js"></script>
     <script src="js/myclosed-tickets.js"></script>
     <script src="js/myonhold-tickets.js"></script>
@@ -466,7 +464,6 @@
     @endif
 
     @if ($page_name == 'Ticket Logs')
-    <script src="js/app-ticket-logs.js"></script>
     <script src="js/ticket-logs-ga.js"></script>
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
@@ -474,70 +471,9 @@
     @endif
 
     @if ($page_name == 'Knowledgebase')
-    <script type="text/javascript">
-      var options3 = {
-          chart: {
-              height:350,
-              type: 'bar',
-              fontFamily: ' SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-              toolbar:{
-              show: false
-              }
-          },
-          plotOptions: {
-              bar: {
-                  horizontal: false,
-                  endingShape: 'rounded',
-                  columnWidth: '55%',
-              },
-          },
-          dataLabels: {
-              enabled: false
-          },
-          stroke: {
-              show: true,
-              width: 2,
-              colors: ['transparent']
-          },
-          series: [
-          {
-              name: 'Total',
-              data: [15, 7, 10, 21]
-          }],
-          xaxis: {
-              categories: ['Desktop Support', 'Software', 'Hardware', 'Networking'],
-          },
-          yaxis: {
-              title: {
-                  text: ''
-              }
-          },
-          fill: {
-              opacity: 1
-
-          },
-          tooltip: {
-              y: {
-                  formatter: function (val) {
-                      return val
-                  }
-              }
-          },
-          colors:["#FFC107"]
-      }
-
-      var chart3 = new ApexCharts(
-          document.querySelector("#column-chart-department"),
-          options3
-      );
-
-      chart3.render();
-
-    </script>
     @endif
 
     @if ($page_name == 'Manage Profile')
-    <script src="js/manage-profile.js"></script>
     <script type="text/javascript">
       var options3 = {
           chart: {

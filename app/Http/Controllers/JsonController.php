@@ -611,7 +611,7 @@ class JsonController extends Controller
         $request->session()->put('d_solved_ticket_count',$solved_count);
         $request->session()->put('d_closed_ticket_count',$closed_count);
 
-        return $user_id;
+        return view('pages.dashboard', ['page_name' => 'Dashboard']);
     }
 
 
@@ -656,7 +656,7 @@ class JsonController extends Controller
         $request->session()->put('t_solved_ticket_count',$solved_count);
         $request->session()->put('t_closed_ticket_count',$closed_count);
 
-        return $user_id;
+        return view('pages.tasks', ['page_name' => 'My Tasks']);
     }
 
 
@@ -687,6 +687,28 @@ class JsonController extends Controller
         $request->session()->put('software_count',$software_count);
         $request->session()->put('networking_count',$networking_count);
         $request->session()->put('desktop_support_count',$desktop_support_count);
+
+        return view('pages.staff-management', ['page_name' => 'Staff Management']);
+    }
+
+
+    public function get_staff_count_json(Request $request)
+    {
+        $http = new \GuzzleHttp\Client;
+
+        $credentials = $http->get('http://localhost:8080/helpdeskApi/rest/users_service/dept_users',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ]
+        ]);
+
+        $result = json_decode((string)$credentials->getBody(),true);
 
         return $result;
     }
@@ -775,7 +797,7 @@ class JsonController extends Controller
         $request->session()->put('success_logs_percentage',$success_logs_percentage);
         $request->session()->put('failed_logs_percentage',$failed_logs_percentage);
         
-        return $result;
+        return view('pages.manage-profile', ['page_name' => 'Manage Profile']);
     }
 
 
@@ -1348,7 +1370,7 @@ class JsonController extends Controller
                 'to_date' => $t_date,
                 'department_id' => $request->input('department_id'),
                 'division_id' => $request->input('division_id'),
-                'region_id' => $request->input('region_id')
+                'region_id' => $request->input('region_id') 
             ]
         ]);
 

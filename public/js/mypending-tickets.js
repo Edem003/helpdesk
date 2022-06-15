@@ -63,7 +63,7 @@ $(document).ready(function()
                           {
                             html += "<span class='text-secondary'>";
                             html += results.data[i].note;
-                            html += "</span>";
+                            html += "</span>";  
                             html += "<br>";
                             html += "<span class='small'> Created by ";
                             html += results.data[i].first_name;

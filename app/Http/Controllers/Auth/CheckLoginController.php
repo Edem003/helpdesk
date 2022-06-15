@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\JsonController;
 
 class CheckLoginController extends Controller
 {
@@ -15,7 +16,7 @@ class CheckLoginController extends Controller
         }
         else
         {
-            return view('pages.dashboard', ['page_name' => 'Dashboard']);
+            return redirect()->action('App\Http\Controllers\JsonController@dashboard');
         }
     }
 
@@ -99,7 +100,7 @@ class CheckLoginController extends Controller
         }
         else
         {
-            return view('pages.tasks', ['page_name' => 'My Tasks']);
+            return redirect()->action('App\Http\Controllers\JsonController@my-tasks');
         }
     }
 
@@ -111,7 +112,7 @@ class CheckLoginController extends Controller
         }
         else
         {
-            return view('pages.staff-management', ['page_name' => 'Staff Management']);
+            return redirect()->action('App\Http\Controllers\JsonController@gstaff-management');
         }
     }
 
@@ -135,7 +136,7 @@ class CheckLoginController extends Controller
         }
         else
         {
-            return view('pages.knowledgebase', ['page_name' => 'Knowledgebase']);
+            return redirect()->action('App\Http\Controllers\JsonController@knowledgebase');
         }
     }
 
@@ -183,7 +184,7 @@ class CheckLoginController extends Controller
         }
         else
         {
-            return view('pages.manage-profile', ['page_name' => 'Manage Profile']);
+            return redirect()->action('App\Http\Controllers\JsonController@manage-profile');
         }
     }
 

@@ -6,10 +6,9 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\CheckLoginController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\JsonController;
-use App\Http\Controllers\LogsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TicketController;
-use App\Http\Controllers\ChartController;
+use App\Http\Controllers\KBController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -107,12 +106,13 @@ Route::get('/update_handle_ticket', [TicketController::class, 'update_handle_tic
 Route::get('/get-csrf-token', [Controller::class, 'getCSRFToken']);
 
 //Get Json data to specific pages
-Route::get('/get_dashboard_json', [JsonController::class, 'get_dashboard_json']);
-Route::get('/get_tasks_json', [JsonController::class, 'get_tasks_json']);
-Route::post('/get_tasks_json', [JsonController::class, 'get_tasks_json']);
-Route::get('/get_staff_management_json', [JsonController::class, 'get_staff_management_json']);
-Route::post('/get_user_logs_json', [JsonController::class, 'get_user_logs_json']);
-Route::get('/get_user_logs_json', [JsonController::class, 'get_user_logs_json']);
+Route::get('/dashboard', [JsonController::class, 'get_dashboard_json']);
+Route::get('/my-tasks', [JsonController::class, 'get_tasks_json']);
+Route::post('/my-tasks', [JsonController::class, 'get_tasks_json']);
+Route::get('/staff-management', [JsonController::class, 'get_staff_management_json']);
+Route::post('/manage-profile', [JsonController::class, 'get_user_logs_json']);
+Route::get('/manage-profile', [JsonController::class, 'get_user_logs_json']);
+Route::get('/get_staff_count_json', [JsonController::class, 'get_staff_count_json']);
 
 //generate complainant form
 Route::post('/generate_print_form', [JsonController::class, 'generate_print_form']);
@@ -176,3 +176,10 @@ Route::get('/phpinfo', function() {
 
 //other links
 Route::get('/knowledgebase-details', [CheckLoginController::class, 'knowledgebase_details']);
+
+//knowledgebase
+Route::post('/ask_question', [KBController::class, 'ask_question']);
+Route::get('/ask_question', [KBController::class, 'ask_question']);
+Route::get('/knowledgebase', [KBController::class, 'get_questions']);
+Route::post('/select_question_ans', [KBController::class, 'select_question_ans']);
+Route::get('/select_question_ans', [KBController::class, 'select_question_ans']);

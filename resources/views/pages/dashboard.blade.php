@@ -174,16 +174,63 @@
                     </div>
                   </div>
                   @endif
-                  @if (session()->get('role') == 'Administrator')
                   <div class="card">
                     <div class="card-body">
-                      <h6 class="small text-warning mb-4">STAFF PERFORMANCE</h6>
+                      <h6 class="text-warning small mb-4">LATEST QUESTIONS</h6>
                       <div class="chart-main activity-timeline update-line">
-                        {!! session()->get('performance_span') !!}
+                        <a href="">
+                          <div class="row small mb-2">
+                            <div class="col-xl-1 me-n-2">
+                              <span><i class="fas fa-arrow-circle-right"></i></span>
+                            </div>
+                            <div class="col-xl-11">
+                              <span class="text-secondary">How to use Metrponic with Django Framework?</span>
+                            </div>
+                          </div>
+                        </a>
+                        <a href="">
+                          <div class="row small mb-2">
+                            <div class="col-xl-1 me-n-2">
+                              <span><i class="fas fa-arrow-circle-right"></i></span>
+                            </div>
+                            <div class="col-xl-11">
+                              <span class="text-secondary">When to expect new version of Metronic Laravel?</span>
+                            </div>
+                          </div>
+                        </a>
+                        <a href="">
+                          <div class="row small mb-2">
+                            <div class="col-xl-1 me-n-2">
+                              <span><i class="fas fa-arrow-circle-right"></i></span>
+                            </div>
+                            <div class="col-xl-11">
+                              <span class="text-secondary">Could not get Metronic Demo 7 working</span>
+                            </div>
+                          </div>
+                        </a>
+                        <a href="">
+                          <div class="row small mb-2">
+                            <div class="col-xl-1 me-n-2">
+                              <span><i class="fas fa-arrow-circle-right"></i></span>
+                            </div>
+                            <div class="col-xl-11">
+                              <span class="text-secondary">How to use Metrponic with Django Framework?</span>
+                            </div>
+                          </div>
+                        </a>
+                        <a href="">
+                          <div class="row small mb-2">
+                            <div class="col-xl-1 me-n-2">
+                              <span><i class="fas fa-arrow-circle-right"></i></span>
+                            </div>
+                            <div class="col-xl-11">
+                              <span class="text-secondary">When to expect new version of Metronic Laravel?</span>
+                            </div>
+                          </div>
+                        </a>
                       </div>
                     </div>
                   </div>
-                  @endif
                 </div>
             </div>
         </div>
