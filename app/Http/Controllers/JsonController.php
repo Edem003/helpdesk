@@ -611,6 +611,57 @@ class JsonController extends Controller
         $request->session()->put('d_solved_ticket_count',$solved_count);
         $request->session()->put('d_closed_ticket_count',$closed_count);
 
+
+        $question_data = $http->get('http://localhost:8080/helpdeskApi/rest/knowledgebase_service/get_questions',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ]
+        ]);
+
+        $question_result = json_decode((string)$question_data->getBody(),true);
+
+        if ($question_result['question_data'] !== null )
+        {
+            $count = count($question_result['question_data']);
+
+            $question_div = '';
+
+            for($i = 0; $i < $count; $i++)
+            {
+                $question_id = $question_result['question_data'][$i]['id'];
+                $title = $question_result['question_data'][$i]['title'];
+
+                $question_div .= '
+                <a href="knowledgebase-details/'.$question_id.'">
+                    <div class="row small mb-2">
+                    <div class="col-xl-1 me-n-2">
+                        <span><i class="fas fa-arrow-circle-right"></i></span>
+                    </div>
+                    <div class="col-xl-11">
+                        <span class="text-secondary">'.$title.'</span>
+                    </div>
+                    </div>
+                </a>
+                ';
+
+                $request->session()->put('question_id',$question_id);
+                $request->session()->put('question_div',$question_div);
+            }
+        }
+
+        if ($question_result['question_data'] == null)
+        {
+            $question_div = 'No data...';
+
+            $request->session()->put('question_div',$question_div);
+        }
+
         return view('pages.dashboard', ['page_name' => 'Dashboard']);
     }
 

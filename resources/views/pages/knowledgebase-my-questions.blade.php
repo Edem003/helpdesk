@@ -13,35 +13,13 @@
                       <div class="card">
                         <div class="card-header pb-0 d-flex mb-3">
                           <div class="col-xl-9">
-                            <h6 class="text-warning">PUBLIC QUESTION</h6>
+                            <h6 class="text-warning">MY QUESTIONS<span class="text-secondary small" style="font-size: 15px"> ({{ session()->get('my_total_count') }})</span></h6>
                           </div>
                           <div class="col-xl-3 text-end">
-                            <button class="btn btn-small btn-primary" type="button" onclick="history.back()"><i class="fas fa-arrow-circle-left"></i></button>
+                            <a class="btn btn-small btn-danger" type="button" href="get_questions"><i class="fas fa-times-circle"></i></a>
                           </div>
                         </div>
-                        <div class="gallery my-gallery card-body post-about row" itemscope="">
-                          <div class="mb-n-4">
-                            {!! session()->get('question_details_div') !!}
-                            @if(session()->has('message'))
-                            <div class="text-white alert alert-success dark alert-dismissible fade show mt-3" role="alert"><i data-feather="check-circle"></i>
-                              <span class="small ms-4"> {{ session('message') }}</span>
-                            </div>
-                            @endif
-                            <form method="POST" action="reply_question" class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
-                             @csrf
-                            <div class="mb-3 mt-5">
-                                <textarea class="form-control" id="exampleInputEmail1" type="text" name="answer" required="" style="height: 150px" placeholder="Your reply here" required=""></textarea>
-                            </div>
-                            <div class="mb-0">
-                                <button class="btn btn-primary" type="submit"><i class="fas fa-arrow-circle-right small"></i> Submit</button>
-                            </div>
-                            </form>
-                            <h6 class="mb-4 mt-5">ANSWERS <span class="text-secondary">({{ session()->get('total_answer_count') }})</span></h6>
-                            <div class="chat-history chat-msg-box custom-scrollbar small">
-                             {!! session()->get('answers_div') !!}
-                            </div>
-                          </div>
-                        </div>
+                          {!! session()->get('my_question_div') !!}
                         <br>
                         <br>
                       </div>    

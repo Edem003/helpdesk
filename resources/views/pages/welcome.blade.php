@@ -239,7 +239,7 @@
                       <h6>LOGIN</h6>
                       <h6 class="small">Welcome back! Login to your account.</h6>
                       @if(session()->has('error_message'))
-                        <div class="text-white alert alert-danger dark alert-dismissible fade show" role="alert"><i data-feather="alert-triangle"></i>
+                        <div class="text-danger alert alert-light dark alert-dismissible fade show" role="alert"><i data-feather="alert-triangle"></i>
                         <span class="small"> {{ session('error_message') }}</span>
                         </div>
                       @endif

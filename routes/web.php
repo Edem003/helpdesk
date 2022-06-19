@@ -52,6 +52,9 @@ Route::get('/ticket-logs', [CheckLoginController::class, 'ticket_logs']);
 Route::get('/user-logs', [CheckLoginController::class, 'user_logs']);
 Route::get('/change-password', [CheckLoginController::class, 'change_password']);
 Route::get('/manage-profile', [CheckLoginController::class, 'manage_profile']);
+Route::get('/knowledgebase-details', [CheckLoginController::class, 'knowledgebase_details']);
+Route::get('/knowledgebase-search', [CheckLoginController::class, 'knowledgebase_search']);
+Route::get('/knowledgebase-my-questions', [CheckLoginController::class, 'knowledgebase_my_questions']);
 
 //lockscreen
 Route::get('/lockscreen', [CheckLoginController::class, 'lockscreen']);
@@ -174,12 +177,12 @@ Route::get('/phpinfo', function() {
     return phpinfo();
 });
 
-//other links
-Route::get('/knowledgebase-details', [CheckLoginController::class, 'knowledgebase_details']);
-
 //knowledgebase
 Route::post('/ask_question', [KBController::class, 'ask_question']);
 Route::get('/ask_question', [KBController::class, 'ask_question']);
-Route::get('/knowledgebase', [KBController::class, 'get_questions']);
-Route::post('/select_question_ans', [KBController::class, 'select_question_ans']);
-Route::get('/select_question_ans', [KBController::class, 'select_question_ans']);
+Route::get('/get_questions', [KBController::class, 'get_questions']);
+Route::get('/knowledgebase-details/{id}', [KBController::class, 'get_answer_details']);
+Route::post('/reply_question', [KBController::class, 'reply_question']);
+Route::get('/reply_question', [KBController::class, 'reply_question']);
+Route::post('/search_question', [KBController::class, 'search_question']);
+Route::get('/my_questions', [KBController::class, 'my_questions']);

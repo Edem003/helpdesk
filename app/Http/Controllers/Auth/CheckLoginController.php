@@ -136,7 +136,7 @@ class CheckLoginController extends Controller
         }
         else
         {
-            return redirect()->action('App\Http\Controllers\JsonController@knowledgebase');
+            return view('pages.knowledgebase', ['page_name' => 'knowledgebase']);
         }
     }
 
@@ -220,7 +220,31 @@ class CheckLoginController extends Controller
         }
         else
         {
-            return view('pages.knowledgebase-details', ['page_name' => 'Knowledgebase']);
+            return view('pages.knowledgebase-details', ['page_name' => 'knowledgebase']);
+        }
+    }
+
+    public function knowledgebase_search()
+    {
+        if (session()->get('check_login') == null)
+        {
+            return redirect("welcome");
+        }
+        else
+        {
+            return view('pages.knowledgebase-search', ['page_name' => 'knowledgebase']);
+        }
+    }
+
+    public function knowledgebase_my_questions()
+    {
+        if (session()->get('check_login') == null)
+        {
+            return redirect("welcome");
+        }
+        else
+        {
+            return view('pages.knowledgebase-my-questions', ['page_name' => 'knowledgebase']);
         }
     }
 }

@@ -18,7 +18,7 @@
                                             <span class="text-secondary mb-1">{{ session()->get('first_name') }} {{ session()->get('surname') }}</span><br>
                                             <span class="text-secondary mb-1">{{ session()->get('email') }}</span><br>
                                             <span class="text-secondary mb-1 small"><i class="fas fa-check-circle text-success"></i> Online</span><br>
-                                            <a class="small text-info" href="#" type="button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-picture" style="text-decoration: underline">Change picture</a>
+                                            <!--a class="small text-info" href="#" type="button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-picture" style="text-decoration: underline">Change picture</a-->
                                             <div class="modal fade bd-example-modal-picture" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                               <div class="modal-dialog modal-dialog-centered modal-md">
                                                 <div class="modal-content">

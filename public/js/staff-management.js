@@ -206,7 +206,6 @@ $(document).ready(function()
                                       <label for="sub-task">Role<span class="text-danger">*</span></label>
                                       <select class="form-control" name="role" required="">
                                         <option value="${response.software_users[i].role}">${response.software_users[i].role}</option>
-                                        <option value="Super Administrator">super Administrator</option>
                                         <option value="Administrator">Administrator</option>
                                         <option value="Staff">Staff</option>
                                         <option value="National Service Personnel">National Service Personnel</option>
@@ -472,7 +471,6 @@ $(document).ready(function()
                                       <label for="sub-task">Role<span class="text-danger">*</span></label>
                                       <select class="form-control" name="role" required="">
                                         <option value="${response.desktop_support_users[i].role}">${response.desktop_support_users[i].role}</option>
-                                        <option value="Super Administrator">super Administrator</option>
                                         <option value="Administrator">Administrator</option>
                                         <option value="Staff">Staff</option>
                                         <option value="National Service Personnel">National Service Personnel</option>
@@ -737,7 +735,6 @@ $(document).ready(function()
                                       <label for="sub-task">Role<span class="text-danger">*</span></label>
                                       <select class="form-control" name="role" required="">
                                         <option value="${response.networking_users[i].role}">${response.networking_users[i].role}</option>
-                                        <option value="Super Administrator">super Administrator</option>
                                         <option value="Administrator">Administrator</option>
                                         <option value="Staff">Staff</option>
                                         <option value="National Service Personnel">National Service Personnel</option>
@@ -1002,7 +999,6 @@ $(document).ready(function()
                                       <label for="sub-task">Role<span class="text-danger">*</span></label>
                                       <select class="form-control" name="role" required="">
                                         <option value="${response.hardware_users[i].role}">${response.hardware_users[i].role}</option>
-                                        <option value="Super Administrator">super Administrator</option>
                                         <option value="Administrator">Administrator</option>
                                         <option value="Staff">Staff</option>
                                         <option value="National Service Personnel">National Service Personnel</option>

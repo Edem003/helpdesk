@@ -43,11 +43,13 @@
 
     <link rel="stylesheet" href="vendor/datatables/dataTables.bootstrap4.min.css">
 
+    <!-- Plugins css start-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/photoswipe.css">
+    <!-- Plugins css Ends-->
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
-    <script src="assets/print-js/print.js"></script>
 
   </head>
   
@@ -127,7 +129,7 @@
                   <li class="dropdown"><a class="nav-link menu-title link-nav" href="staff-management"><i data-feather="users"></i><span>Staff Management</span></a></li>
                   @endif
                   <li class="dropdown"><a class="nav-link menu-title link-nav" href="summary-reports"><i data-feather="pie-chart"></i><span>Summary Reports</span></a></li>
-                  <li class="dropdown"><a class="nav-link menu-title link-nav" href="knowledgebase"><i data-feather="book-open"></i><span>Knowledgebase</span></a></li>
+                  <li class="dropdown"><a class="nav-link menu-title link-nav" href="get_questions"><i data-feather="book-open"></i><span>Knowledgebase</span></a></li>
                   <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="settings"></i><span>Settings</span></a>
                     <ul class="nav-submenu menu-content">
                       <li><a href="manage-profile">Manage Profile</a></li>
@@ -471,6 +473,11 @@
     @endif
 
     @if ($page_name == 'Knowledgebase')
+    <!-- Plugins JS start-->
+    <script src="js/photoswipe/photoswipe.min.js"></script>
+    <script src="js/photoswipe/photoswipe-ui-default.min.js"></script>
+    <script src="js/photoswipe/photoswipe.js"></script>
+    <!-- Plugins JS Ends-->
     @endif
 
     @if ($page_name == 'Manage Profile')

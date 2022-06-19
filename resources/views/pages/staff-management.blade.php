@@ -54,7 +54,6 @@
                                               <label for="sub-task">Role<span class="text-danger">*</span></label>
                                               <select class="form-control" name="role" required="">
                                                 <option value="" disabled selected>-- select --</option>
-                                                <option value="Super Administrator">super Administrator</option>
                                                 <option value="Administrator">Administrator</option>
                                                 <option value="Staff">Staff</option>
                                                 <option value="National Service Personnel">National Service Personnel</option>
