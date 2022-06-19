@@ -180,7 +180,7 @@ Route::get('/phpinfo', function() {
 //knowledgebase
 Route::post('/ask_question', [KBController::class, 'ask_question']);
 Route::get('/ask_question', [KBController::class, 'ask_question']);
-Route::get('/get_questions', [KBController::class, 'get_questions']);
+Route::get('/knowledgebase', [KBController::class, 'get_questions']);
 Route::get('/knowledgebase-details/{id}', [KBController::class, 'get_answer_details']);
 Route::post('/reply_question', [KBController::class, 'reply_question']);
 Route::get('/reply_question', [KBController::class, 'reply_question']);

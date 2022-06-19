@@ -69,6 +69,19 @@
                           {!! session()->get('question_div') !!}
                         <br>
                         <br>
+                        <!--div class="col-sm-12">
+                          <div class="job-pagination">
+                            <nav aria-label="Page navigation example">
+                              <ul class="pagination pagination-primary">
+                                <li class="page-item disabled"><a class="page-link" href="javascript:void(0)">Previous</a></li>
+                                <li class="page-item active"><a class="page-link" href="javascript:void(0)">1</a></li>
+                                <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
+                                <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+                                <li class="page-item"><a class="page-link" href="javascript:void(0)">Next</a></li>
+                              </ul>
+                            </nav>
+                          </div>
+                        </div-->
                       </div>    
                     </div>
                   </div>
@@ -79,8 +92,10 @@
                       <form method="POST" action="search_question" class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
                       @csrf
                       <div class="mb-5 m-form__group small">
-                        <div class="input-group"><span class="input-group-text"><i  data-feather="search"></i></span>
-                          <input class="form-control" type="text" name="search" style="font-size: 13px" required="" placeholder="Search...">
+                        <div class="job-filter">
+                          <div class="faq-form">
+                            <input class="form-control" type="text" name="search" style="font-size: 13px" required="" placeholder="Search.."><i class="search-icon" data-feather="search"></i>
+                          </div>
                         </div>
                       </div>
                       </form>

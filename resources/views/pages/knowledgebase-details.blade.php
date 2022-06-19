@@ -54,8 +54,10 @@
                       <form method="POST" action="search_question" class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
                       @csrf
                       <div class="mb-5 m-form__group small">
-                        <div class="input-group"><span class="input-group-text"><i  data-feather="search"></i></span>
-                          <input class="form-control" type="text" name="search" style="font-size: 13px" required="" placeholder="Search...">
+                        <div class="job-filter">
+                          <div class="faq-form">
+                            <input class="form-control" type="text" name="search" style="font-size: 13px" required="" placeholder="Search.."><i class="search-icon" data-feather="search"></i>
+                          </div>
                         </div>
                       </div>
                       </form>

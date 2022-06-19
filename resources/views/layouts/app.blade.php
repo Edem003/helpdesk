@@ -129,7 +129,7 @@
                   <li class="dropdown"><a class="nav-link menu-title link-nav" href="staff-management"><i data-feather="users"></i><span>Staff Management</span></a></li>
                   @endif
                   <li class="dropdown"><a class="nav-link menu-title link-nav" href="summary-reports"><i data-feather="pie-chart"></i><span>Summary Reports</span></a></li>
-                  <li class="dropdown"><a class="nav-link menu-title link-nav" href="get_questions"><i data-feather="book-open"></i><span>Knowledgebase</span></a></li>
+                  <li class="dropdown"><a class="nav-link menu-title link-nav" href="knowledgebase"><i data-feather="book-open"></i><span>Knowledgebase</span></a></li>
                   <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="settings"></i><span>Settings</span></a>
                     <ul class="nav-submenu menu-content">
                       <li><a href="manage-profile">Manage Profile</a></li>

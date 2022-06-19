@@ -199,7 +199,7 @@ class KBController extends Controller
             $request->session()->put('trending_question_div',$trending_question_div);
         }
 
-        return redirect("knowledgebase");
+        return view('pages.knowledgebase', ['page_name' => 'Knowledgebase']);
     }
 
     public function get_answer_details(Request $request, $id)

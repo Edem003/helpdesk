@@ -112,7 +112,7 @@ class CheckLoginController extends Controller
         }
         else
         {
-            return redirect()->action('App\Http\Controllers\JsonController@gstaff-management');
+            return redirect()->action('App\Http\Controllers\JsonController@staff-management');
         }
     }
 
@@ -136,7 +136,7 @@ class CheckLoginController extends Controller
         }
         else
         {
-            return view('pages.knowledgebase', ['page_name' => 'knowledgebase']);
+            return redirect()->action('App\Http\Controllers\JsonController@knowledgebase');
         }
     }
 

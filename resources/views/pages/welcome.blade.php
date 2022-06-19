@@ -118,7 +118,7 @@
     <section>
       <div class="container-fluid" style="">
         <div class="row">
-          <div class="col-xl-4" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;"><img class="bg-img-cover" src="assets/images/index.gif" alt="loginpage"></div>
+          <div class="col-xl-4" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;"><img class="bg-img-cover" src="assets/images/index.jpg" alt="loginpage"></div>
           <div class="col-xl-8 p-4">
           <div class="row justify-content-center" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
                   <div class="col-xl-10">

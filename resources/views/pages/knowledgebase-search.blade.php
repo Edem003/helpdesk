@@ -25,7 +25,7 @@
                             </form>
                           </div>
                           <div class="col-xl-3 text-end">
-                            <a class="btn btn-small btn-danger" type="button" href="get_questions"><i class="fas fa-times-circle"></i></a>
+                            <a class="btn btn-small btn-danger" type="button" href="knowledgebase"><i class="fas fa-times-circle"></i></a>
                           </div>
                         </div>
                           {!! session()->get('search_div') !!}
