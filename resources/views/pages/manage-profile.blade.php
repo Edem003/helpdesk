@@ -253,7 +253,7 @@
                                     <div class="row">
                                         <div class="col-xl-8">
                                         @if(session()->has('update_system'))
-                                            <div class="text-white alert alert-success dark alert-dismissible fade show" role="alert"><i data-feather="check-circle"></i>
+                                            <div class="text-white alert alert-warning dark alert-dismissible fade show" role="alert"><i data-feather="check-circle"></i>
                                                 <span class="small ms-4"> {{ session('update_system') }}</span>
                                             </div>
                                             <br>
@@ -262,7 +262,7 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-md-2">
-                                            <span class="text-secondary small"><b>Color: </b></span>
+                                            <span class="text-secondary small"><b>Theme: </b></span>
                                         </div>
                                         <div class="col-md-5 mt-n-2">
                                             <select class="form-control" name="color" required="">

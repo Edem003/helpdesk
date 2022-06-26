@@ -132,6 +132,6 @@ class UserController extends Controller
 
         $response = $credentials->getBody();
 
-        return redirect("manage-profile")->with(['update_sytem' => 'Personalization updated, restart required.']);
+        return redirect("manage-profile")->with(['update_system' => 'Personalization updated, restart required.']);
     }
 }

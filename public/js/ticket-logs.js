@@ -71,7 +71,7 @@ $(document).ready(function()
             
             $('#ticket_logs').DataTable({
                 order: [[0, 'desc']],
-                pageLength: 50,
+                pageLength: 100,
                 data: dataSet
             });
 
