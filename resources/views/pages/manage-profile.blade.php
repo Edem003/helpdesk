@@ -244,6 +244,83 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xl-12">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                <h6 class="mb-4 text-warning small">PERSONALIZATION</h6>
+                                <form class="form-bookmark needs-validation" method="POST" action="update_user_personalization" id="bookmark-form" id="bookmark-form" novalidate="">
+                                @csrf
+                                    <div class="row">
+                                        <div class="col-xl-8">
+                                        @if(session()->has('update_system'))
+                                            <div class="text-white alert alert-success dark alert-dismissible fade show" role="alert"><i data-feather="check-circle"></i>
+                                                <span class="small ms-4"> {{ session('update_system') }}</span>
+                                            </div>
+                                            <br>
+                                        @endif
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-2">
+                                            <span class="text-secondary small"><b>Color: </b></span>
+                                        </div>
+                                        <div class="col-md-5 mt-n-2">
+                                            <select class="form-control" name="color" required="">
+                                                @if(session()->get('color') == 'Light')
+                                                <option value="Light">Light</option>
+                                                <option value="Dark">Dark</option>
+                                                <option value="Auto">Auto</option>
+                                                @endif
+                                                @if(session()->get('color') == 'Dark')
+                                                <option value="Dark">Dark</option>
+                                                <option value="Light">Light</option>
+                                                <option value="Auto">Auto</option>
+                                                @endif
+                                                @if(session()->get('color') == 'Auto')
+                                                <option value="Auto">Auto</option>
+                                                <option value="Light">Light</option>
+                                                <option value="Dark">Dark</option>
+                                                @endif
+                                                @if(session()->get('color') == 0)
+                                                <option value="Auto">Auto</option>
+                                                <option value="Light">Light</option>
+                                                <option value="Dark">Dark</option>
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-md-2">
+                                            <span class="text-secondary small"><b>Lockscreen: </b></span>
+                                        </div>
+                                        <div class="col-md-5 mt-n-2">
+                                            <select class="form-control" name="lockscreen" required="">
+                                                @if(session()->get('lockscreen') == 'Auto')
+                                                <option value="Auto">Auto</option>
+                                                <option value="Disable">Disable</option>
+                                                @endif
+                                                @if(session()->get('lockscreen') == 0)
+                                                <option value="Auto">Auto</option>
+                                                <option value="Disable">Disable</option>
+                                                @endif
+                                                @if(session()->get('lockscreen') == 'Disable')
+                                                <option value="Disable">Disabled</option>
+                                                <option value="Auto">Auto</option>
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-n-2">
+                                        <div class="col-md-2">
+                                        </div>
+                                        <div class="col-md-5 mt-n-2">
+                                            <button class="btn btn-primary-light btn-sm w-100 mb-1 btn-update" type="sumit"><i class="fas fa-refresh small"></i> Apply Changes</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-xl-4">

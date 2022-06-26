@@ -38,7 +38,7 @@
                             <th class="text-center">ACTION</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="small">
                         </tbody>
                       </table>
                     </div>

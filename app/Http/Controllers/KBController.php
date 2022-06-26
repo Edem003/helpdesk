@@ -544,7 +544,7 @@ class KBController extends Controller
 
                 $trending_question_div .= '
                 <a href="knowledgebase-details/'.$question_id.'">
-                    <div class="row small mb-2">
+                    <div class="row small mb-4">
                     <div class="col-xl-1 me-n-2">
                         <span><i class="fas fa-arrow-circle-right"></i></span>
                     </div>

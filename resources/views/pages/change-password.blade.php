@@ -142,22 +142,12 @@
                             <h6>WELCOME TO IT HELPDESK!!</h6>
                             <p class="">Hello <span class="text-warning">{{ session('first_name') }}</span>, please change your password.</p>
                             <br>
-                            @if(session()->has('success_message'))
-                            <div class="text-white alert alert-success dark alert-dismissible fade show" role="alert"><i data-feather="check-circle"></i>
-                              <span class="small ms-4"> {{ session('success_message') }}</span>
-                            </div>
-                            <br>
-                            @endif
                             @if(session()->has('error_message'))
                             <div class="text-white alert alert-danger dark alert-dismissible fade show" role="alert"><i data-feather="alert-triangle"></i>
                                 <span class="small ms-4"> {{ session('error_message') }}</span>
                             </div>
                             <br>
                             @endif
-                                <div class="mb-3">
-                                  <label class="col-form-label pt-0" for="exampleInputEmail1">Current Password<span class="text-danger">*</span></label>
-                                  <input class="form-control" id="exampleInputEmail1" type="password" name="c_pass" required="" minlength="8" placeholder="*************">
-                                </div>
                                 <div class="mb-3">
                                   <label class="col-form-label pt-0" for="exampleInputEmail1">New Password<span class="text-danger">*</span></label>
                                   <input class="form-control" id="exampleInputEmail1" type="password" name="n_pass" required="" minlength="8" placeholder="*************">

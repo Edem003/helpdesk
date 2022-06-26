@@ -221,15 +221,15 @@ $(document).ready(function()
 
                 if (status == 'Pending')
                 {
-                    html.push("<b class='text-warning' style='border: 1px solid; border-radius: 7px; padding: 5px'>Pending</b>")
+                    html.push("<b class='text-warning small' style='border: 1px solid; border-radius: 7px; padding: 5px'>Pending</b>")
                 }
                 if (status == 'On Hold')
                 {
-                    html.push("<b class='text-danger' style='border: 1px solid; border-radius: 7px; padding: 5px'></i>On Hold</b>")
+                    html.push("<b class='text-danger small' style='border: 1px solid; border-radius: 7px; padding: 5px'></i>On Hold</b>")
                 }
                 if (status == 'Solved')
                 {
-                    html.push("<b class='text-success' style='border: 1px solid; border-radius: 7px; padding: 5px'>Solved</b>")
+                    html.push("<b class='text-success small' style='border: 1px solid; border-radius: 7px; padding: 5px'>Solved</b>")
                 }    
                 html.push(actions);
 

@@ -87,6 +87,8 @@ class TicketController extends Controller
     {
         $http = new \GuzzleHttp\Client;
 
+        $members = implode(", ", $request->input('assigned_members'));
+
         $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/ticket_update',[
             'headers'=>[
                 'Authorization'=>'Bearer'.session()->get('token.access_token'),
@@ -108,7 +110,8 @@ class TicketController extends Controller
                 'details' => $request->input('details'),
                 'priority_id' => $request->input('priority_id'),
                 'department_id' => $request->input('department_id'),
-                'assigned_userid' => $request->input('assigned_userid'),
+                'assigned_userid' => $request->input('assigned_user_id'),
+                'assigned_groupid' => $members,
                 'date_assigned' => date('Y-m-d'),
                 'is_assigned' => 1,
                 'status_id' => 2

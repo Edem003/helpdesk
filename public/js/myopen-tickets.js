@@ -114,20 +114,14 @@ $(document).ready(function()
                                             html_1_${response.data[i].id} = "<span class='text-secondary'><b>Department:</b>  ${response.data[i].department}</span>";
                                         }
                                         document.getElementById('li_1_${response.data[i].id}').innerHTML = html_1_${response.data[i].id};
-                                    })
-                                    </script>
-                                    <script>
-                                    $(document).ready(function() {
+
                                         let html_2_${response.data[i].id} = '';
                                         if (('${response.data[i].status}') !== 'Open')
                                         {
                                             html_2_${response.data[i].id} = "<span class='text-secondary'><b>Assigned To:</b>  ${response.data[i].first_name} ${response.data[i].surname}</span>";
                                         }
                                         document.getElementById('li_2_${response.data[i].id}').innerHTML = html_2_${response.data[i].id};
-                                    })
-                                    </script>
-                                    <script>
-                                    $(document).ready(function() {
+
                                         let html_3_${response.data[i].id} = '';
                                         if (('${response.data[i].status}') !== 'Open')
                                         {

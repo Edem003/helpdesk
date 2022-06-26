@@ -235,10 +235,6 @@ $(document).ready(function()
                                             <label class="col-form-label pt-0" for="exampleInputEmail1">Authorised By:</label>
                                             <input class="form-control" name="authorisor" required>
                                         </div>
-                                        <div class="mb-2">
-                                            <label class="col-form-label pt-0" for="exampleInputEmail1">Diagnoses:</label>
-                                            <textarea class="form-control" name="details" required></textarea>
-                                        </div>
                                         <div class="mb-3">
                                             <label class="col-form-label pt-0" for="exampleInputEmail1">Date:</label>
                                             <input class="form-control" name="cur_date" value="${cur_date}" required readonly>

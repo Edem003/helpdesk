@@ -15,8 +15,9 @@ class JsonController extends Controller
         $http = new \GuzzleHttp\Client;
         
         $user_id = $request->session()->get('id');
+        $user_reg = $request->session()->get('region_id');
 
-        $status_response = $http->get('http://localhost:8080/helpdeskApi/rest/tickets_service/status_ticket',[
+        $status_response = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/status_ticket',[
             'headers'=>[
                 'Authorization'=>'Bearer'.session()->get('token.access_token'),
                 'Content-Type'  => 'application/json',
@@ -25,6 +26,9 @@ class JsonController extends Controller
                 'Access-Control-Allow-Headers' => 'X-Requested-With',
                 'Access-Control-Max-Age' => '1728000',
                 'Connection' => 'Keep-Alive',
+            ],
+            'json'=>[
+                'user_reg'=>$user_reg
             ]
         ]); 
 
@@ -58,8 +62,9 @@ class JsonController extends Controller
         $request->session()->put('solved_perc',$solved_perc);
         $request->session()->put('closed_perc',$closed_perc);
 
+        //Super Administrator
 
-        $dept_count = $http->get('http://localhost:8080/helpdeskApi/rest/tickets_service/dept_ticket',[
+        $status_response_sa = $http->get('http://localhost:8080/helpdeskApi/rest/tickets_service/status_ticket_sa',[
             'headers'=>[
                 'Authorization'=>'Bearer'.session()->get('token.access_token'),
                 'Content-Type'  => 'application/json',
@@ -68,6 +73,52 @@ class JsonController extends Controller
                 'Access-Control-Allow-Headers' => 'X-Requested-With',
                 'Access-Control-Max-Age' => '1728000',
                 'Connection' => 'Keep-Alive',
+            ]
+        ]); 
+
+        $status_result_sa = json_decode((string)$status_response_sa->getBody(),true);
+
+        //status count
+        $open_ticket_count_sa = $status_result_sa['open_count'];
+        $pending_ticket_count_sa = $status_result_sa['pending_count'];
+        $on_hold_ticket_count_sa = $status_result_sa['on_hold_count'];
+        $solved_ticket_count_sa = $status_result_sa['solved_count'];
+        $closed_ticket_count_sa = $status_result_sa['closed_count'];
+
+        //status percentage
+        $open_perc_sa = round($status_result_sa['open_percentage'][0]['open_percentage']);
+        $pending_perc_sa = round($status_result_sa['pending_percentage'][0]['pending_percentage']);
+        $on_hold_perc_sa = round($status_result_sa['on_hold_percentage'][0]['on_hold_percentage']);
+        $solved_perc_sa = round($status_result_sa['solved_percentage'][0]['solved_percentage']);
+        $closed_perc_sa = round($status_result_sa['closed_percentage'][0]['closed_percentage']);
+
+        //getting status count into session
+        $request->session()->put('open_ticket_count_sa',$open_ticket_count_sa);
+        $request->session()->put('pending_ticket_count_sa',$pending_ticket_count_sa);
+        $request->session()->put('on_hold_ticket_count_sa',$on_hold_ticket_count_sa);
+        $request->session()->put('solved_ticket_count_sa',$solved_ticket_count_sa);
+        $request->session()->put('closed_ticket_count_sa',$closed_ticket_count_sa);
+
+        //getting status percentage into session
+        $request->session()->put('open_perc_sa',$open_perc_sa);
+        $request->session()->put('pending_perc_sa',$pending_perc_sa);
+        $request->session()->put('on_hold_perc_sa',$on_hold_perc_sa);
+        $request->session()->put('solved_perc_sa',$solved_perc_sa);
+        $request->session()->put('closed_perc_sa',$closed_perc_sa);
+
+
+        $dept_count = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/dept_ticket',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ],
+            'json'=>[
+                'user_reg'=>$user_reg
             ]
         ]); 
 
@@ -108,7 +159,7 @@ class JsonController extends Controller
         $request->session()->put('ds_closed_ticket_count',$ds_closed_ticket_count);
 
 
-        $activity_row = $http->get('http://localhost:8080/helpdeskApi/rest/tickets_service/tickets_to_dashboard',[
+        $dept_count_sa = $http->get('http://localhost:8080/helpdeskApi/rest/tickets_service/dept_ticket_sa',[
             'headers'=>[
                 'Authorization'=>'Bearer'.session()->get('token.access_token'),
                 'Content-Type'  => 'application/json',
@@ -117,6 +168,58 @@ class JsonController extends Controller
                 'Access-Control-Allow-Headers' => 'X-Requested-With',
                 'Access-Control-Max-Age' => '1728000',
                 'Connection' => 'Keep-Alive',
+            ]
+        ]); 
+
+        $dept_count_result_sa = json_decode((string)$dept_count_sa->getBody(),true);
+
+        $h_pending_ticket_count_sa = $dept_count_result_sa['hardware_pending_count'];
+        $h_on_hold_ticket_count_sa = $dept_count_result_sa['hardware_on_hold_count'];
+        $h_solved_ticket_count_sa = $dept_count_result_sa['hardware_solved_count'];
+        $h_closed_ticket_count_sa = $dept_count_result_sa['hardware_closed_count'];
+        $n_pending_ticket_count_sa = $dept_count_result_sa['networking_pending_count'];
+        $n_on_hold_ticket_count_sa = $dept_count_result_sa['networking_on_hold_count'];
+        $n_solved_ticket_count_sa = $dept_count_result_sa['networking_solved_count'];
+        $n_closed_ticket_count_sa = $dept_count_result_sa['networking_closed_count'];
+        $s_pending_ticket_count_sa = $dept_count_result_sa['software_pending_count'];
+        $s_on_hold_ticket_count_sa = $dept_count_result_sa['software_on_hold_count'];
+        $s_solved_ticket_count_sa = $dept_count_result_sa['software_solved_count'];
+        $s_closed_ticket_count_sa = $dept_count_result_sa['software_closed_count'];
+        $ds_pending_ticket_count_sa = $dept_count_result_sa['desktop_support_pending_count'];
+        $ds_on_hold_ticket_count_sa = $dept_count_result_sa['desktop_support_on_hold_count'];
+        $ds_solved_ticket_count_sa = $dept_count_result_sa['desktop_support_solved_count'];
+        $ds_closed_ticket_count_sa = $dept_count_result_sa['desktop_support_closed_count'];
+
+        $request->session()->put('h_pending_ticket_count_sa',$h_pending_ticket_count_sa);
+        $request->session()->put('h_on_hold_ticket_count_sa',$h_on_hold_ticket_count_sa);
+        $request->session()->put('h_solved_ticket_count_sa',$h_solved_ticket_count_sa);
+        $request->session()->put('h_closed_ticket_count_sa',$h_closed_ticket_count_sa);
+        $request->session()->put('n_pending_ticket_count_sa',$n_pending_ticket_count_sa);
+        $request->session()->put('n_on_hold_ticket_count_sa',$n_on_hold_ticket_count_sa);
+        $request->session()->put('n_solved_ticket_count_sa',$n_solved_ticket_count_sa);
+        $request->session()->put('n_closed_ticket_count_sa',$n_closed_ticket_count_sa);
+        $request->session()->put('s_pending_ticket_count_sa',$s_pending_ticket_count_sa);
+        $request->session()->put('s_on_hold_ticket_count_sa',$s_on_hold_ticket_count_sa);
+        $request->session()->put('s_solved_ticket_count_sa',$s_solved_ticket_count_sa);
+        $request->session()->put('s_closed_ticket_count_sa',$s_closed_ticket_count_sa);
+        $request->session()->put('ds_pending_ticket_count_sa',$ds_pending_ticket_count_sa);
+        $request->session()->put('ds_on_hold_ticket_count_sa',$ds_on_hold_ticket_count_sa);
+        $request->session()->put('ds_solved_ticket_count_sa',$ds_solved_ticket_count_sa);
+        $request->session()->put('ds_closed_ticket_count_sa',$ds_closed_ticket_count_sa);
+
+
+        $activity_row = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/tickets_to_dashboard',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ],
+            'json'=>[
+                'user_reg'=>$user_reg
             ]
         ]);
 
@@ -264,6 +367,165 @@ class JsonController extends Controller
             $ticket_logs_div = '<span class="text-secondary">No data... </span>';
 
             $request->session()->put('ticket_logs_div',$ticket_logs_div);
+        }
+
+
+        $activity_row_sa = $http->get('http://localhost:8080/helpdeskApi/rest/tickets_service/tickets_to_dashboard_sa',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ]
+        ]);
+
+        $activity_row_result_sa = json_decode((string)$activity_row_sa->getBody(),true);
+
+        if ($activity_row_result_sa['data'] !== null )
+        {
+            $count = count($activity_row_result_sa['data']);
+
+            $ticket_logs_div_sa = '';
+
+            for($i = 0; $i < $count; $i++)
+            {
+                $ticket_id = $activity_row_result_sa['data'][$i]['id'];
+                $code = $activity_row_result_sa['data'][$i]['code'];
+                $subject = $activity_row_result_sa['data'][$i]['subject'];
+                $priority = $activity_row_result_sa['data'][$i]['priority'];
+                $status = $activity_row_result_sa['data'][$i]['status'];
+                $date_created = $activity_row_result_sa['data'][$i]['date_created'];
+
+                if ($status == 'Open')
+                {
+                    if ($priority == 'Low')
+                    {
+                        $ticket_logs_div_sa .= 
+                        '<div class="media">
+                            <div class="activity-dot-primary mt-n-4"></div>
+                            <div class="media-body d-block">
+                                <span class="font-primary me-2 small">'.$date_created.'</span><span class="badge pill-badge-primary m-l-10">New</span>
+                                <br>
+                                <span class="text-secondary span">'.$code.' :<i class="fas fa-arrow-circle-down text-success small ms-2"></i> [ '.$status.' ]</span>
+                                <p class="small">'.$subject.'</p>
+                            </div>
+                        </div>';
+                    }
+
+                    if ($priority == 'Medium')
+                    {
+                        $ticket_logs_div_sa .= 
+                        '<div class="media">
+                            <div class="activity-dot-primary mt-n-4"></div>
+                            <div class="media-body d-block">
+                                <span class="font-primary me-2 small">'.$date_created.'</span><span class="badge pill-badge-primary m-l-10">New</span>
+                                <br>
+                                <span class="text-secondary small">'.$code.' :<i class="fas fa-minus-circle text-warning small ms-2"></i> [ '.$status.' ]</span>
+                                <p class="small">'.$subject.'</p>
+                            </div>
+                        </div>';
+                    }
+
+                    if ($priority == 'High')
+                    {
+                        $ticket_logs_div_sa .= 
+                        '<div class="media">
+                            <div class="activity-dot-primary mt-n-4"></div>
+                            <div class="media-body d-block">
+                                <span class="font-primary me-2 small">'.$date_created.'</span><span class="badge pill-badge-primary m-l-10">New</span>
+                                <br>
+                                <span class="text-secondary small">'.$code.' :<i class="fas fa-arrow-circle-up text-danger small ms-2"></i> [ '.$status.' ]</span>
+                                <p class="small">'.$subject.'</p>
+                            </div>
+                        </div>';
+                    }
+
+                    if ($priority == 'Urgent')
+                    {
+                        $ticket_logs_div_sa .= 
+                        '<div class="media">
+                            <div class="activity-dot-primary mt-n-4"></div>
+                            <div class="media-body d-block">
+                                <span class="font-primary me-2 small">'.$date_created.'</span><span class="badge pill-badge-primary m-l-10">New</span>
+                                <br>
+                                <span class="text-secondary small">'.$code.' :<i class="fas fa-exclamation-triangle text-danger small ms-2"></i> [ '.$status.' ]</span>
+                                <p class="small">'.$subject.'</p>
+                            </div>
+                        </div>';
+                    }
+                }
+
+                if ($status !== 'Open')
+                {
+                    if ($priority == 'Low')
+                    {
+                        $ticket_logs_div_sa .= 
+                        '<div class="media">
+                            <div class="activity-dot-primary mt-n-4"></div>
+                            <div class="media-body d-block">
+                                <span class="font-primary me-2 small">'.$date_created.'</span>
+                                <br>
+                                <span class="text-secondary small">'.$code.' :<i class="fas fa-arrow-circle-down text-success small ms-2"></i> [ '.$status.' ]</span>
+                                <p class="small">'.$subject.'</p>
+                            </div>
+                        </div>';
+                    }
+
+                    if ($priority == 'Medium')
+                    {
+                        $ticket_logs_div_sa .= 
+                        '<div class="media">
+                            <div class="activity-dot-primary mt-n-4"></div>
+                            <div class="media-body d-block">
+                                <span class="font-primary me-2 small">'.$date_created.'</span>
+                                <br>
+                                <span class="text-secondary small">'.$code.' :<i class="fas fa-minus-circle text-warning small ms-2"></i> [ '.$status.' ]</span>
+                                <p class="small">'.$subject.'</p>
+                            </div>
+                        </div>';
+                    }
+
+                    if ($priority == 'High')
+                    {
+                        $ticket_logs_div_sa .= 
+                        '<div class="media">
+                            <div class="activity-dot-primary mt-n-4"></div>
+                            <div class="media-body d-block">
+                                <span class="font-primary me-2 small">'.$date_created.'</span>
+                                <br>
+                                <span class="text-secondary small">'.$code.' :<i class="fas fa-arrow-circle-up text-danger small ms-2"></i> [ '.$status.' ]</span>
+                                <p class="small">'.$subject.'</p>
+                            </div>
+                        </div>';
+                    }
+
+                    if ($priority == 'Urgent')
+                    {
+                        $ticket_logs_div_sa .= 
+                        '<div class="media">
+                            <div class="activity-dot-primary mt-n-4"></div>
+                            <div class="media-body d-block">
+                                <span class="font-primary me-2 small">'.$date_created.'</span>
+                                <br>
+                                <span class="text-secondary small">'.$code.' :<i class="fas fa-exclamation-triangle small ms-2" style="color: #d63384"></i> [ '.$status.' ]</span>
+                                <p class="small">'.$subject.'</p>
+                            </div>
+                        </div>';
+                    }
+                }
+            }
+
+            $request->session()->put('ticket_logs_div_sa',$ticket_logs_div_sa);
+        }
+
+        if ($activity_row_result_sa['data'] == null)
+        {
+            $ticket_logs_div_sa = '<span class="text-secondary">No data... </span>';
+
+            $request->session()->put('ticket_logs_div_sa',$ticket_logs_div_sa);
         }
 
 
@@ -469,7 +731,7 @@ class JsonController extends Controller
         }
 
 
-        $dept_chart = $http->get('http://localhost:8080/helpdeskApi/rest/tickets_service/dept_ticket_per_month',[
+        $dept_chart = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/dept_ticket_per_month',[
             'headers'=>[
                 'Authorization'=>'Bearer'.session()->get('token.access_token'),
                 'Content-Type'  => 'application/json',
@@ -478,6 +740,9 @@ class JsonController extends Controller
                 'Access-Control-Allow-Headers' => 'X-Requested-With',
                 'Access-Control-Max-Age' => '1728000',
                 'Connection' => 'Keep-Alive',
+            ],
+            'json'=>[
+                'user_reg'=>$user_reg
             ]
         ]); 
 
@@ -582,6 +847,119 @@ class JsonController extends Controller
         $request->session()->put('ds_dec_ticket_count',$ds_dec_ticket_count);
 
 
+        $dept_chart_sa = $http->get('http://localhost:8080/helpdeskApi/rest/tickets_service/dept_ticket_per_month_sa',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ]
+        ]); 
+
+        $dept_chart_result_sa = json_decode((string)$dept_chart_sa->getBody(),true);
+
+        $h_jan_ticket_count_sa = $dept_chart_result_sa['hardware_jan_count'];
+        $h_feb_ticket_count_sa = $dept_chart_result_sa['hardware_feb_count'];
+        $h_mar_ticket_count_sa = $dept_chart_result_sa['hardware_mar_count'];
+        $h_apr_ticket_count_sa = $dept_chart_result_sa['hardware_apr_count'];
+        $h_may_ticket_count_sa = $dept_chart_result_sa['hardware_may_count'];
+        $h_jun_ticket_count_sa = $dept_chart_result_sa['hardware_jun_count'];
+        $h_jul_ticket_count_sa = $dept_chart_result_sa['hardware_jul_count'];
+        $h_aug_ticket_count_sa = $dept_chart_result_sa['hardware_aug_count'];
+        $h_sep_ticket_count_sa = $dept_chart_result_sa['hardware_sep_count'];
+        $h_oct_ticket_count_sa = $dept_chart_result_sa['hardware_oct_count'];
+        $h_nov_ticket_count_sa = $dept_chart_result_sa['hardware_nov_count'];
+        $h_dec_ticket_count_sa = $dept_chart_result_sa['hardware_dec_count'];
+        $n_jan_ticket_count_sa = $dept_chart_result_sa['networking_jan_count'];
+        $n_feb_ticket_count_sa = $dept_chart_result_sa['networking_feb_count'];
+        $n_mar_ticket_count_sa = $dept_chart_result_sa['networking_mar_count'];
+        $n_apr_ticket_count_sa = $dept_chart_result_sa['networking_apr_count'];
+        $n_may_ticket_count_sa = $dept_chart_result_sa['networking_may_count'];
+        $n_jun_ticket_count_sa = $dept_chart_result_sa['networking_jun_count'];
+        $n_jul_ticket_count_sa = $dept_chart_result_sa['networking_jul_count'];
+        $n_aug_ticket_count_sa = $dept_chart_result_sa['networking_aug_count'];
+        $n_sep_ticket_count_sa = $dept_chart_result_sa['networking_sep_count'];
+        $n_oct_ticket_count_sa = $dept_chart_result_sa['networking_oct_count'];
+        $n_nov_ticket_count_sa = $dept_chart_result_sa['networking_nov_count'];
+        $n_dec_ticket_count_sa = $dept_chart_result_sa['networking_dec_count'];
+        $s_jan_ticket_count_sa = $dept_chart_result_sa['software_jan_count'];
+        $s_feb_ticket_count_sa = $dept_chart_result_sa['software_feb_count'];
+        $s_mar_ticket_count_sa = $dept_chart_result_sa['software_mar_count'];
+        $s_apr_ticket_count_sa = $dept_chart_result_sa['software_apr_count'];
+        $s_may_ticket_count_sa = $dept_chart_result_sa['software_may_count'];
+        $s_jun_ticket_count_sa = $dept_chart_result_sa['software_jun_count'];
+        $s_jul_ticket_count_sa = $dept_chart_result_sa['software_jul_count'];
+        $s_aug_ticket_count_sa = $dept_chart_result_sa['software_aug_count'];
+        $s_sep_ticket_count_sa = $dept_chart_result_sa['software_sep_count'];
+        $s_oct_ticket_count_sa = $dept_chart_result_sa['software_oct_count'];
+        $s_nov_ticket_count_sa = $dept_chart_result_sa['software_nov_count'];
+        $s_dec_ticket_count_sa = $dept_chart_result_sa['software_dec_count'];
+        $ds_jan_ticket_count_sa = $dept_chart_result_sa['desktop_support_jan_count'];
+        $ds_feb_ticket_count_sa = $dept_chart_result_sa['desktop_support_feb_count'];
+        $ds_mar_ticket_count_sa = $dept_chart_result_sa['desktop_support_mar_count'];
+        $ds_apr_ticket_count_sa = $dept_chart_result_sa['desktop_support_apr_count'];
+        $ds_may_ticket_count_sa = $dept_chart_result_sa['desktop_support_may_count'];
+        $ds_jun_ticket_count_sa = $dept_chart_result_sa['desktop_support_jun_count'];
+        $ds_jul_ticket_count_sa = $dept_chart_result_sa['desktop_support_jul_count'];
+        $ds_aug_ticket_count_sa = $dept_chart_result_sa['desktop_support_aug_count'];
+        $ds_sep_ticket_count_sa = $dept_chart_result_sa['desktop_support_sep_count'];
+        $ds_oct_ticket_count_sa = $dept_chart_result_sa['desktop_support_oct_count'];
+        $ds_nov_ticket_count_sa = $dept_chart_result_sa['desktop_support_nov_count'];
+        $ds_dec_ticket_count_sa = $dept_chart_result_sa['desktop_support_dec_count'];
+
+        $request->session()->put('h_jan_ticket_count_sa',$h_jan_ticket_count_sa);
+        $request->session()->put('h_feb_ticket_count_sa',$h_feb_ticket_count_sa);
+        $request->session()->put('h_mar_ticket_count_sa',$h_mar_ticket_count_sa);
+        $request->session()->put('h_apr_ticket_count_sa',$h_apr_ticket_count_sa);
+        $request->session()->put('h_may_ticket_count_sa',$h_may_ticket_count_sa);
+        $request->session()->put('h_jun_ticket_count_sa',$h_jun_ticket_count_sa);
+        $request->session()->put('h_jul_ticket_count_sa',$h_jul_ticket_count_sa);
+        $request->session()->put('h_aug_ticket_count_sa',$h_aug_ticket_count_sa);
+        $request->session()->put('h_sep_ticket_count_sa',$h_sep_ticket_count_sa);
+        $request->session()->put('h_oct_ticket_count_sa',$h_oct_ticket_count_sa);
+        $request->session()->put('h_nov_ticket_count_sa',$h_nov_ticket_count_sa);
+        $request->session()->put('h_dec_ticket_count_sa',$h_dec_ticket_count_sa);
+        $request->session()->put('n_jan_ticket_count_sa',$n_jan_ticket_count_sa);
+        $request->session()->put('n_feb_ticket_count_sa',$n_feb_ticket_count_sa);
+        $request->session()->put('n_mar_ticket_count_sa',$n_mar_ticket_count_sa);
+        $request->session()->put('n_apr_ticket_count_sa',$n_apr_ticket_count_sa);
+        $request->session()->put('n_may_ticket_count_sa',$n_may_ticket_count_sa);
+        $request->session()->put('n_jun_ticket_count_sa',$n_jun_ticket_count_sa);
+        $request->session()->put('n_jul_ticket_count_sa',$n_jul_ticket_count_sa);
+        $request->session()->put('n_aug_ticket_count_sa',$n_aug_ticket_count_sa);
+        $request->session()->put('n_sep_ticket_count_sa',$n_sep_ticket_count_sa);
+        $request->session()->put('n_oct_ticket_count_sa',$n_oct_ticket_count_sa);
+        $request->session()->put('n_nov_ticket_count_sa',$n_nov_ticket_count_sa);
+        $request->session()->put('n_dec_ticket_count_sa',$n_dec_ticket_count_sa);
+        $request->session()->put('s_jan_ticket_count_sa',$s_jan_ticket_count_sa);
+        $request->session()->put('s_feb_ticket_count_sa',$s_feb_ticket_count_sa);
+        $request->session()->put('s_mar_ticket_count_sa',$s_mar_ticket_count_sa);
+        $request->session()->put('s_apr_ticket_count_sa',$s_apr_ticket_count_sa);
+        $request->session()->put('s_may_ticket_count_sa',$s_may_ticket_count_sa);
+        $request->session()->put('s_jun_ticket_count_sa',$s_jun_ticket_count_sa);
+        $request->session()->put('s_jul_ticket_count_sa',$s_jul_ticket_count_sa);
+        $request->session()->put('s_aug_ticket_count_sa',$s_aug_ticket_count_sa);
+        $request->session()->put('s_sep_ticket_count_sa',$s_sep_ticket_count_sa);
+        $request->session()->put('s_oct_ticket_count_sa',$s_oct_ticket_count_sa);
+        $request->session()->put('s_nov_ticket_count_sa',$s_nov_ticket_count_sa);
+        $request->session()->put('s_dec_ticket_count_sa',$s_dec_ticket_count_sa);
+        $request->session()->put('ds_jan_ticket_count_sa',$ds_jan_ticket_count_sa);
+        $request->session()->put('ds_feb_ticket_count_sa',$ds_feb_ticket_count_sa);
+        $request->session()->put('ds_mar_ticket_count_sa',$ds_mar_ticket_count_sa);
+        $request->session()->put('ds_apr_ticket_count_sa',$ds_apr_ticket_count_sa);
+        $request->session()->put('ds_may_ticket_count_sa',$ds_may_ticket_count_sa);
+        $request->session()->put('ds_jun_ticket_count_sa',$ds_jun_ticket_count_sa);
+        $request->session()->put('ds_jul_ticket_count_sa',$ds_jul_ticket_count_sa);
+        $request->session()->put('ds_aug_ticket_count_sa',$ds_aug_ticket_count_sa);
+        $request->session()->put('ds_sep_ticket_count_sa',$ds_sep_ticket_count_sa);
+        $request->session()->put('ds_oct_ticket_count_sa',$ds_oct_ticket_count_sa);
+        $request->session()->put('ds_nov_ticket_count_sa',$ds_nov_ticket_count_sa);
+        $request->session()->put('ds_dec_ticket_count_sa',$ds_dec_ticket_count_sa);
+
+
         $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/user_tasks',[
             'headers'=>[
                 'Authorization'=>'Bearer'.session()->get('token.access_token'),
@@ -639,7 +1017,7 @@ class JsonController extends Controller
 
                 $question_div .= '
                 <a href="knowledgebase-details/'.$question_id.'">
-                    <div class="row small mb-2">
+                    <div class="row small mb-4">
                     <div class="col-xl-1 me-n-2">
                         <span><i class="fas fa-arrow-circle-right"></i></span>
                     </div>
@@ -661,6 +1039,55 @@ class JsonController extends Controller
 
             $request->session()->put('question_div',$question_div);
         }
+
+
+        $reg_count = $http->get('http://localhost:8080/helpdeskApi/rest/tickets_service/get_region_tickets',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ]
+        ]); 
+
+        $reg_count_result = json_decode((string)$reg_count->getBody(),true);
+
+        $gar_ticket_count = $reg_count_result['gar_count'];
+        $eas_ticket_count = $reg_count_result['eas_count'];
+        $ash_ticket_count = $reg_count_result['ash_count'];
+        $cen_ticket_count = $reg_count_result['cen_count'];
+        $wen_ticket_count = $reg_count_result['wen_count'];
+        $wrn_ticket_count = $reg_count_result['wrn_count'];
+        $vol_ticket_count = $reg_count_result['vol_count'];
+        $oti_ticket_count = $reg_count_result['oti_count'];
+        $aha_ticket_count = $reg_count_result['aha_count'];
+        $boe_ticket_count = $reg_count_result['boe_count'];
+        $bon_ticket_count = $reg_count_result['bon_count'];
+        $sav_ticket_count = $reg_count_result['sav_count'];
+        $nor_ticket_count = $reg_count_result['nor_count'];
+        $noe_ticket_count = $reg_count_result['noe_count'];
+        $upe_ticket_count = $reg_count_result['upe_count'];
+        $upw_ticket_count = $reg_count_result['upw_count'];
+
+        $request->session()->put('gar_ticket_count',$gar_ticket_count);
+        $request->session()->put('eas_ticket_count',$eas_ticket_count);
+        $request->session()->put('ash_ticket_count',$ash_ticket_count);
+        $request->session()->put('cen_ticket_count',$cen_ticket_count);
+        $request->session()->put('wen_ticket_count',$wen_ticket_count);
+        $request->session()->put('wrn_ticket_count',$wrn_ticket_count);
+        $request->session()->put('vol_ticket_count',$vol_ticket_count);
+        $request->session()->put('oti_ticket_count',$oti_ticket_count);
+        $request->session()->put('aha_ticket_count',$aha_ticket_count);
+        $request->session()->put('boe_ticket_count',$boe_ticket_count);
+        $request->session()->put('bon_ticket_count',$bon_ticket_count);
+        $request->session()->put('sav_ticket_count',$sav_ticket_count);
+        $request->session()->put('nor_ticket_count',$nor_ticket_count);
+        $request->session()->put('noe_ticket_count',$noe_ticket_count);
+        $request->session()->put('upe_ticket_count',$upe_ticket_count);
+        $request->session()->put('upw_ticket_count',$upw_ticket_count);
 
         return view('pages.dashboard', ['page_name' => 'Dashboard']);
     }
@@ -715,7 +1142,9 @@ class JsonController extends Controller
     {
         $http = new \GuzzleHttp\Client;
 
-        $credentials = $http->get('http://localhost:8080/helpdeskApi/rest/users_service/dept_users',[
+        $user_reg = $request->session()->get('region_id');
+
+        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/users_service/dept_users',[
             'headers'=>[
                 'Authorization'=>'Bearer'.session()->get('token.access_token'),
                 'Content-Type'  => 'application/json',
@@ -724,6 +1153,9 @@ class JsonController extends Controller
                 'Access-Control-Allow-Headers' => 'X-Requested-With',
                 'Access-Control-Max-Age' => '1728000',
                 'Connection' => 'Keep-Alive',
+            ],
+            'json'=>[
+                'user_reg'=>$user_reg
             ]
         ]);
 
@@ -739,15 +1171,8 @@ class JsonController extends Controller
         $request->session()->put('networking_count',$networking_count);
         $request->session()->put('desktop_support_count',$desktop_support_count);
 
-        return view('pages.staff-management', ['page_name' => 'Staff Management']);
-    }
 
-
-    public function get_staff_count_json(Request $request)
-    {
-        $http = new \GuzzleHttp\Client;
-
-        $credentials = $http->get('http://localhost:8080/helpdeskApi/rest/users_service/dept_users',[
+        $credentials_sa = $http->get('http://localhost:8080/helpdeskApi/rest/users_service/dept_users_sa',[
             'headers'=>[
                 'Authorization'=>'Bearer'.session()->get('token.access_token'),
                 'Content-Type'  => 'application/json',
@@ -759,9 +1184,70 @@ class JsonController extends Controller
             ]
         ]);
 
+        $result_sa = json_decode((string)$credentials_sa->getBody(),true);
+
+        $hardware_count_sa = $result_sa['hardware_count'];
+        $software_count_sa = $result_sa['software_count'];
+        $networking_count_sa = $result_sa['networking_count'];
+        $desktop_support_count_sa = $result_sa['desktop_support_count'];
+
+        $request->session()->put('hardware_count_sa',$hardware_count_sa);
+        $request->session()->put('software_count_sa',$software_count_sa);
+        $request->session()->put('networking_count_sa',$networking_count_sa);
+        $request->session()->put('desktop_support_count_sa',$desktop_support_count_sa);
+
+        return view('pages.staff-management', ['page_name' => 'Staff Management']);
+    }
+
+
+    public function get_staff_count_json(Request $request)
+    {
+        $http = new \GuzzleHttp\Client;
+
+        $user_reg = $request->session()->get('region_id');
+
+        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/users_service/dept_users',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ],
+            'json'=>[
+                'user_reg'=>$user_reg
+            ]
+        ]);
+
         $result = json_decode((string)$credentials->getBody(),true);
 
         return $result;
+    }
+
+
+    public function get_staff_count_json_sa(Request $request)
+    {
+        $http = new \GuzzleHttp\Client;
+
+        $user_reg = $request->session()->get('region_id');
+
+        $credentials_sa = $http->get('http://localhost:8080/helpdeskApi/rest/users_service/dept_users_sa',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ]
+        ]);
+
+        $result_sa = json_decode((string)$credentials_sa->getBody(),true);
+
+        return $result_sa;
     }
 
 
@@ -852,13 +1338,165 @@ class JsonController extends Controller
     }
 
 
+    public function select_option_group(Request $request)
+    {
+        $http = new \GuzzleHttp\Client;
+
+        $selected = $request->input('department_id');
+        $user_reg = $request->session()->get('region_id');
+
+        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/users_service/get_users_by_dept',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ],
+            'json'=>[
+                'user_dept'=>$selected,
+                'user_reg'=>$user_reg
+            ]
+        ]);
+
+        $result = json_decode((string)$credentials->getBody(),true);
+
+        $count = count($result['data']);
+
+        if ($result['data'] !== null )
+        {
+            $get_select_option = '';
+
+            for($i = 0; $i < $count; $i++)
+            {
+                $user_id = $result['data'][$i]['id'];
+                $user_first_name = $result['data'][$i]['first_name'];
+                $user_surname = $result['data'][$i]['surname'];
+                
+                $get_select_option .= '<option value='.$user_first_name.' '.$user_surname.'>'.$user_first_name.' '.$user_surname.'</option>';
+            }
+
+            return $get_select_option;
+        }
+
+        if ($result['data'] == null)
+        {
+            $get_select_option = '';
+
+            return $get_select_option;
+        }
+    }
+
     public function select_option_users(Request $request)
     {
         $http = new \GuzzleHttp\Client;
 
         $selected = $request->input('department_id');
+        $user_reg = $request->session()->get('region_id');
 
         $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/users_service/get_users_by_dept',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ],
+            'json'=>[
+                'user_dept'=>$selected,
+                'user_reg'=>$user_reg
+            ]
+        ]);
+
+        $result = json_decode((string)$credentials->getBody(),true);
+
+        $count = count($result['data']);
+
+        if ($result['data'] !== null )
+        {
+            $get_select_option = '<option value="" selected disabled>-- select --</option>';
+
+            for($i = 0; $i < $count; $i++)
+            {
+                $user_id = $result['data'][$i]['id'];
+                $user_first_name = $result['data'][$i]['first_name'];
+                $user_surname = $result['data'][$i]['surname'];
+                
+                $get_select_option .= '<option value='.$user_id.'>'.$user_first_name.' '.$user_surname.'</option>';
+            }
+
+            return $get_select_option;
+        }
+
+        if ($result['data'] == null)
+        {
+            $get_select_option = '<option value="" selected disabled>-- select --</option>';
+
+            return $get_select_option;
+        }
+    }
+
+
+    public function select_option_group_sa(Request $request)
+    {
+        $http = new \GuzzleHttp\Client;
+
+        $selected = $request->input('department_id');
+
+        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/users_service/get_users_by_dept_sa',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ],
+            'json'=>[
+                'user_dept'=>$selected
+            ]
+        ]);
+
+        $result = json_decode((string)$credentials->getBody(),true);
+
+        $count = count($result['data']);
+
+        if ($result['data'] !== null )
+        {
+            $get_select_option = '';
+
+            for($i = 0; $i < $count; $i++)
+            {
+                $user_id = $result['data'][$i]['id'];
+                $user_first_name = $result['data'][$i]['first_name'];
+                $user_surname = $result['data'][$i]['surname'];
+                
+                $get_select_option .= '<option value="'.$user_first_name.' '.$user_surname.'">'.$user_first_name.' '.$user_surname.'</option>';
+            }
+
+            return $get_select_option;
+        }
+
+        if ($result['data'] == null)
+        {
+            $get_select_option = '';
+
+            return $get_select_option;
+        }
+    }
+
+    public function select_option_users_sa(Request $request)
+    {
+        $http = new \GuzzleHttp\Client;
+
+        $selected = $request->input('department_id');
+
+        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/users_service/get_users_by_dept_sa',[
             'headers'=>[
                 'Authorization'=>'Bearer'.session()->get('token.access_token'),
                 'Content-Type'  => 'application/json',
@@ -901,12 +1539,146 @@ class JsonController extends Controller
         }
     }
 
-
     public function get_open_ticket(Request $request)
     {
         $http = new \GuzzleHttp\Client;
 
+        $user_reg = $request->session()->get('region_id');
+
         $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/get_ticket',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ],
+            'json'=>[
+                'statusid'=>1,
+                'user_reg'=>$user_reg
+            ]
+        ]);
+
+        $open_ticket_result = json_decode((string)$credentials->getBody(),true);
+        
+        return $open_ticket_result;
+    }
+
+    public function get_pending_ticket(Request $request)    
+    {
+        $http = new \GuzzleHttp\Client;
+
+        $user_reg = $request->session()->get('region_id');
+
+        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/get_ticket',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ],
+            'json'=>[
+                'statusid'=>2,
+                'user_reg'=>$user_reg
+            ]
+        ]);
+
+        $pending_ticket_result = json_decode((string)$credentials->getBody(),true);
+        
+        return $pending_ticket_result;
+    }
+
+    public function get_on_hold_ticket(Request $request)
+    {
+        $http = new \GuzzleHttp\Client;
+
+        $user_reg = $request->session()->get('region_id');
+
+        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/get_ticket',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ],
+            'json'=>[
+                'statusid'=>3,
+                'user_reg'=>$user_reg
+            ]
+        ]);
+
+        $on_hold_ticket_result = json_decode((string)$credentials->getBody(),true);
+        
+        return $on_hold_ticket_result;
+    }
+
+    public function get_solved_ticket(Request $request)
+    {
+        $http = new \GuzzleHttp\Client;
+
+        $user_reg = $request->session()->get('region_id');
+
+        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/get_ticket',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ],
+            'json'=>[
+                'statusid'=>4,
+                'user_reg'=>$user_reg
+            ]
+        ]);
+
+        $solved_ticket_result = json_decode((string)$credentials->getBody(),true);
+        
+        return $solved_ticket_result;
+    }
+
+    public function get_closed_ticket(Request $request)
+    {
+        $http = new \GuzzleHttp\Client;
+
+        $user_reg = $request->session()->get('region_id');
+
+        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/get_ticket',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ],
+            'json'=>[
+                'statusid'=>5,
+                'user_reg'=>$user_reg
+            ]
+        ]);
+
+        $closed_ticket_result = json_decode((string)$credentials->getBody(),true);
+        
+        return $closed_ticket_result;
+    }
+
+    public function get_open_ticket_sa(Request $request)
+    {
+        $http = new \GuzzleHttp\Client;
+
+        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/get_ticket_sa',[
             'headers'=>[
                 'Authorization'=>'Bearer'.session()->get('token.access_token'),
                 'Content-Type'  => 'application/json',
@@ -921,16 +1693,16 @@ class JsonController extends Controller
             ]
         ]);
 
-        $open_ticket_result = json_decode((string)$credentials->getBody(),true);
+        $open_ticket_result_sa = json_decode((string)$credentials->getBody(),true);
         
-        return $open_ticket_result;
+        return $open_ticket_result_sa;
     }
 
-    public function get_pending_ticket(Request $request)
+    public function get_pending_ticket_sa(Request $request)    
     {
         $http = new \GuzzleHttp\Client;
 
-        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/get_ticket',[
+        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/get_ticket_sa',[
             'headers'=>[
                 'Authorization'=>'Bearer'.session()->get('token.access_token'),
                 'Content-Type'  => 'application/json',
@@ -945,16 +1717,16 @@ class JsonController extends Controller
             ]
         ]);
 
-        $pending_ticket_result = json_decode((string)$credentials->getBody(),true);
+        $pending_ticket_result_sa = json_decode((string)$credentials->getBody(),true);
         
-        return $pending_ticket_result;
+        return $pending_ticket_result_sa;
     }
 
-    public function get_on_hold_ticket(Request $request)
+    public function get_on_hold_ticket_sa(Request $request)
     {
         $http = new \GuzzleHttp\Client;
 
-        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/get_ticket',[
+        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/get_ticket_sa',[
             'headers'=>[
                 'Authorization'=>'Bearer'.session()->get('token.access_token'),
                 'Content-Type'  => 'application/json',
@@ -969,16 +1741,16 @@ class JsonController extends Controller
             ]
         ]);
 
-        $on_hold_ticket_result = json_decode((string)$credentials->getBody(),true);
+        $on_hold_ticket_result_sa = json_decode((string)$credentials->getBody(),true);
         
-        return $on_hold_ticket_result;
+        return $on_hold_ticket_result_sa;
     }
 
-    public function get_solved_ticket(Request $request)
+    public function get_solved_ticket_sa(Request $request)
     {
         $http = new \GuzzleHttp\Client;
 
-        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/get_ticket',[
+        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/get_ticket_sa',[
             'headers'=>[
                 'Authorization'=>'Bearer'.session()->get('token.access_token'),
                 'Content-Type'  => 'application/json',
@@ -993,16 +1765,16 @@ class JsonController extends Controller
             ]
         ]);
 
-        $solved_ticket_result = json_decode((string)$credentials->getBody(),true);
+        $solved_ticket_result_sa = json_decode((string)$credentials->getBody(),true);
         
-        return $solved_ticket_result;
+        return $solved_ticket_result_sa;
     }
 
-    public function get_closed_ticket(Request $request)
+    public function get_closed_ticket_sa(Request $request)
     {
         $http = new \GuzzleHttp\Client;
 
-        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/get_ticket',[
+        $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/get_ticket_sa',[
             'headers'=>[
                 'Authorization'=>'Bearer'.session()->get('token.access_token'),
                 'Content-Type'  => 'application/json',
@@ -1017,9 +1789,9 @@ class JsonController extends Controller
             ]
         ]);
 
-        $closed_ticket_result = json_decode((string)$credentials->getBody(),true);
+        $closed_ticket_result_sa = json_decode((string)$credentials->getBody(),true);
         
-        return $closed_ticket_result;
+        return $closed_ticket_result_sa;
     }
 
     public function get_myopen_ticket(Request $request)
@@ -1051,7 +1823,7 @@ class JsonController extends Controller
 
     public function get_handle_ticket(Request $request)
     {
-        $http = new \GuzzleHttp\Client;
+        $http = new \GuzzleHttp\Client; 
 
         $user_id = $request->session()->get('id');
 
@@ -1322,9 +2094,10 @@ class JsonController extends Controller
         return $user_logs;
     }
 
-    public function get_ticket_logs_ga(Request $request)
+    public function get_ticket_logs(Request $request)
     {
         $http = new \GuzzleHttp\Client;
+        $user_reg = $request->session()->get('region_id');
 
         $credentials = $http->post('http://localhost:8080/helpdeskApi/rest/tickets_service/ticket_logs',[
             'headers'=>[
@@ -1337,25 +2110,46 @@ class JsonController extends Controller
                 'Connection' => 'Keep-Alive',
             ],
             'json'=>[
-                'region_id' => 1
+                'region_id' => $user_reg
             ]
         ]);
 
-        $ticket_logs_ga = json_decode((string)$credentials->getBody(),true);
+        $ticket_logs = json_decode((string)$credentials->getBody(),true);
+        
+        return $ticket_logs;
+    }
 
-        if ($ticket_logs_ga['data'] !== null)
+    public function get_ticket_logs_sa(Request $request)
+    {
+        $http = new \GuzzleHttp\Client;
+
+        $credentials = $http->get('http://localhost:8080/helpdeskApi/rest/tickets_service/ticket_logs_sa',[
+            'headers'=>[
+                'Authorization'=>'Bearer'.session()->get('token.access_token'),
+                'Content-Type'  => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET,PUT,POST,DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With',
+                'Access-Control-Max-Age' => '1728000',
+                'Connection' => 'Keep-Alive',
+            ]
+        ]);
+
+        $ticket_logs = json_decode((string)$credentials->getBody(),true);
+
+        if ($ticket_logs['data'] !== null)
         {
-            $ticket_logs_ga_count = count($ticket_logs_ga['data']);
-            $request->session()->put('ticket_logs_ga_count',$ticket_logs_ga_count);
+            $ticket_logs_count = count($ticket_logs['data']);
+            $request->session()->put('ticket_logs_count',$ticket_logs_count);
         }
 
-        if ($ticket_logs_ga['data'] == null)
+        if ($ticket_logs['data'] == null)
         {
-            $ticket_logs_ga_count = 0;
-            $request->session()->put('ticket_logs_ga_count',$ticket_logs_ga_count);
+            $ticket_logs_count = 0;
+            $request->session()->put('ticket_logs_count',$ticket_logs_count);
         }
         
-        return $ticket_logs_ga;
+        return $ticket_logs;
     }
 
     public function get_user_tasks(Request $request)
@@ -1501,16 +2295,16 @@ class JsonController extends Controller
             <input class="form-control" style="font-size: 13px" value="'.$complainant.'">
         </div>
         <div class="mb-2">
+            <label class="col-form-label pt-0" for="exampleInputEmail1">Signature (Complainant):</label>
+            <textarea class="form-control" style="font-size: 13px" style="height: 200px"></textarea>
+        </div>
+        <div class="mb-2">
             <label class="col-form-label pt-0" for="exampleInputEmail1">IT Officer:</label>
             <input class="form-control" style="font-size: 13px" value="'.$it_officer.'">
         </div>
         <div class="mb-2">
             <label class="col-form-label pt-0" for="exampleInputEmail1">Authorised By:</label>
             <input class="form-control" style="font-size: 13px" value="'.$authorised_by.'">
-        </div>
-        <div class="mb-2">
-            <label class="col-form-label pt-0" for="exampleInputEmail1">Diagnoses:</label>
-            <textarea class="form-control" style="font-size: 13px" style="height: 200px">'.$diagnoses.'</textarea>
         </div>
         <div class="mb-2">
             <label class="col-form-label pt-0" for="exampleInputEmail1">Date:</label>

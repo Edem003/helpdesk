@@ -118,20 +118,27 @@
     <section>
       <div class="container-fluid" style="">
         <div class="row">
-          <div class="col-xl-4" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;"><img class="bg-img-cover" src="assets/images/index.jpg" alt="loginpage"></div>
-          <div class="col-xl-8 p-4">
+          <div class="col-xl-12 p-4">
           <div class="row justify-content-center" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
-                  <div class="col-xl-10">
-                      <div class="card shadow">
+                  <div class="col-xl-7">
+                      <div class="card shadow-lg">
                           <div class="card-body d-flex justify-content-center">
-                          <form class="form-bookmark needs-validation col-md-10" method="POST" action="w_send_ticket" id="bookmark-form" novalidate="">
+                          <form class="form-bookmark needs-validation col-md-10 theme-form" method="POST" action="w_send_ticket" id="bookmark-form" novalidate="">
                           @csrf
-                            <h6>WELCOME TO IT HELPDESK!!</h6>
+                            <img class="mb-3" src="assets/images/lc_icon.jpg" style="width: 90px; height: 90px; display: block; margin-left: auto; margin-right: auto;">
+                            <h6 class="text-center mb-5">WELCOME TO IT HELPDESK!!</h6>
                             <p class="">Do you have any issue? Lodge a complaint in the form below.</p>
                             <br>
                             @if(session()->has('send_ticket_message'))
                             <div class="text-white alert alert-success dark alert-dismissible fade show" role="alert"><i data-feather="check-circle"></i>
                               <span class="small ms-4"> {{ session('send_ticket_message') }}</span>
+                            </div>
+                            <br>
+                            @endif
+                            
+                            @if(session()->has('success_message'))
+                            <div class="text-white alert alert-success dark alert-dismissible fade show" role="alert"><i data-feather="check-circle"></i>
+                              <span class="small ms-4"> {{ session('success_message') }}</span>
                             </div>
                             <br>
                             @endif
@@ -153,8 +160,7 @@
                                             <option value="2">PVLMD</option>
                                             <option value="4">SMD</option>
                                             <option value="3">LRD</option>
-                                            <option value="5">IT Unit</option>
-                                            <option value="6">Audit Unit</option>
+                                            <option value="14">Corporate</option>
                                         </select>
                                     </div>
                                     <div class="d-flex mb-3">

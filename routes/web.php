@@ -24,6 +24,11 @@ use Illuminate\Http\Request;
 */
 
 //index
+Route::get('/', function () {
+    return view('pages.welcome', ['page_name' => 'Welcome Form']);
+});
+
+//welcome
 Route::get('/welcome', function () {
     return view('pages.welcome', ['page_name' => 'Welcome Form']);
 });
@@ -74,6 +79,7 @@ Route::get('/update_user', [UserController::class, 'update_user']);
 //update profile
 Route::post('/update_profile', [UserController::class, 'update_profile']);
 Route::get('/update_profile', [UserController::class, 'update_profile']);
+Route::post('/update_user_personalization', [UserController::class, 'update_user_personalization']);
 
 //update password
 Route::post('/change_password', [PasswordController::class, 'change_password']);
@@ -116,6 +122,9 @@ Route::get('/staff-management', [JsonController::class, 'get_staff_management_js
 Route::post('/manage-profile', [JsonController::class, 'get_user_logs_json']);
 Route::get('/manage-profile', [JsonController::class, 'get_user_logs_json']);
 Route::get('/get_staff_count_json', [JsonController::class, 'get_staff_count_json']);
+Route::post('/get_staff_count_json', [JsonController::class, 'get_staff_count_json']);
+Route::get('/get_staff_count_json_sa', [JsonController::class, 'get_staff_count_json_sa']);
+Route::post('/get_staff_count_json_sa', [JsonController::class, 'get_staff_count_json_sa']);
 
 //generate complainant form
 Route::post('/generate_print_form', [JsonController::class, 'generate_print_form']);
@@ -142,6 +151,11 @@ Route::get('/get_pending_ticket', [JsonController::class, 'get_pending_ticket'])
 Route::get('/get_on_hold_ticket', [JsonController::class, 'get_on_hold_ticket']);
 Route::get('/get_solved_ticket', [JsonController::class, 'get_solved_ticket']);
 Route::get('/get_closed_ticket', [JsonController::class, 'get_closed_ticket']);
+Route::get('/get_open_ticket_sa', [JsonController::class, 'get_open_ticket_sa']);
+Route::get('/get_pending_ticket_sa', [JsonController::class, 'get_pending_ticket_sa']);
+Route::get('/get_on_hold_ticket_sa', [JsonController::class, 'get_on_hold_ticket_sa']);
+Route::get('/get_solved_ticket_sa', [JsonController::class, 'get_solved_ticket_sa']);
+Route::get('/get_closed_ticket_sa', [JsonController::class, 'get_closed_ticket_sa']);
 
 //load staff
 Route::get('/hardware_users', [JsonController::class, 'hardware_users']);
@@ -149,6 +163,9 @@ Route::get('/networking_users', [JsonController::class, 'networking_users']);
 Route::get('/software_users', [JsonController::class, 'software_users']);
 Route::get('/desk_support_users', [JsonController::class, 'desk_support_users']);
 Route::get('/select_option_users', [JsonController::class, 'select_option_users']);
+Route::get('/select_option_group', [JsonController::class, 'select_option_group']);
+Route::get('/select_option_users_sa', [JsonController::class, 'select_option_users_sa']);
+Route::get('/select_option_group_sa', [JsonController::class, 'select_option_group_sa']);
 
 Route::get('/get_myopen_ticket', [JsonController::class, 'get_myopen_ticket']);
 Route::get('/get_handle_ticket', [JsonController::class, 'get_handle_ticket']);
@@ -157,7 +174,8 @@ Route::get('/get_myonhold_ticket', [JsonController::class, 'get_myonhold_ticket'
 Route::get('/get_mysolved_ticket', [JsonController::class, 'get_mysolved_ticket']);
 Route::get('/get_myclosed_ticket', [JsonController::class, 'get_myclosed_ticket']);
 Route::get('/get_performance_ticket', [JsonController::class, 'get_performance_ticket']);
-Route::get('/get_ticket_logs_ga', [JsonController::class, 'get_ticket_logs_ga']);
+Route::get('/get_ticket_logs', [JsonController::class, 'get_ticket_logs']);
+Route::get('/get_ticket_logs_sa', [JsonController::class, 'get_ticket_logs_sa']);
 Route::post('/get_user_tasks', [JsonController::class, 'get_user_tasks']);
 Route::get('/get_total_ticket', [JsonController::class, 'get_total_ticket']);
 
@@ -186,3 +204,8 @@ Route::post('/reply_question', [KBController::class, 'reply_question']);
 Route::get('/reply_question', [KBController::class, 'reply_question']);
 Route::post('/search_question', [KBController::class, 'search_question']);
 Route::get('/my_questions', [KBController::class, 'my_questions']);
+
+//other links
+Route::get('/get_assigned_type', [Controller::class, 'get_assigned_type']);
+
+Route::get('/test', [JsonController::class, 'test']);

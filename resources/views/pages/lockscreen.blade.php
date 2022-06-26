@@ -128,7 +128,6 @@
   <!-- Loader ends-->
 <!-- page-wrapper Start-->
   <body class="custom-scrollbar" style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; background-color: #e9ecec;">
-  <img class="bg-img-cover" src="assets/images/background.jpg" alt="loginpage">
     <!-- Loader starts-->
     <div class="loader-wrapper">
       <div class="theme-loader">    
@@ -166,7 +165,7 @@
                                     <button class="btn btn-primary btn-login" type="submit"><i class="fas fa-unlock small"></i> Unlock</button>
                                   </div>
                                   <div class="col-md-7" style="padding-top: 30px">
-                                    <p>Do you want to sign in with different account?<a class="ms-2" href="logout" style="text-decoration: underline"><b>Click Here</b></a></p>
+                                    <p class="small">Do you want to sign in with different account?<a class="ms-2" href="logout" style="text-decoration: underline"><b>Click Here</b></a></p>
                                   </div>
                                 </div>
                                 <div class="row">

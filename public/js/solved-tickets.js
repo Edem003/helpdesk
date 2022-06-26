@@ -115,7 +115,41 @@ $(document).ready(function()
                                     <li><span class="text-secondary"><b>Priority:</b>  ${response.data[i].priority}</span></li>
                                     <li><span class="text-secondary"><b>Status:</b>  ${response.data[i].status}</span></li>
                                     <li><span class="text-secondary"><b>Department:</b>  ${response.data[i].department}</span></li>
-                                    <li><span class="text-secondary"><b>Assigned To:</b>  ${response.data[i].first_name} ${response.data[i].surname}</span></li>
+                                    <script>
+                                    $(document).ready(function() {
+                                        let html_1_${response.data[i].id} = '';
+                                        if (('${response.data[i].assigned_groupid}') == 'null')
+                                        {
+                                            html_1_${response.data[i].id} = "<span class='text-secondary'><b>Assigned To:</b>  Individual</span>";
+                                        }
+                                        if (('${response.data[i].assigned_groupid}') !== 'null')
+                                        {
+                                            html_1_${response.data[i].id} = "<span class='text-secondary'><b>Assigned To:</b>  Group</span>";
+                                        }
+                                        document.getElementById('li_1_${response.data[i].id}').innerHTML = html_1_${response.data[i].id};
+
+                                        let html_2_${response.data[i].id} = '';
+                                        if (('${response.data[i].assigned_groupid}') == 'null')
+                                        {
+                                            html_2_${response.data[i].id} = "<span class='text-secondary'><b>IT Officer:</b>  ${response.data[i].first_name} ${response.data[i].surname}</span>";
+                                        }
+                                        if (('${response.data[i].assigned_groupid}') !== 'null')
+                                        {
+                                            html_2_${response.data[i].id} = "<span class='text-secondary'><b>Team Leader:</b>  ${response.data[i].first_name} ${response.data[i].surname}</span>";
+                                        }
+                                        document.getElementById('li_2_${response.data[i].id}').innerHTML = html_2_${response.data[i].id};
+
+                                        let html_3_${response.data[i].id} = '';
+                                        if (('${response.data[i].assigned_groupid}') !== 'null')
+                                        {
+                                            html_3_${response.data[i].id} = "<span class='text-secondary'><b>Members:</b>  ${response.data[i].assigned_groupid}</span>";
+                                        }
+                                        document.getElementById('li_3_${response.data[i].id}').innerHTML = html_3_${response.data[i].id};
+                                    })
+                                    </script>
+                                    <li id="li_1_${response.data[i].id}"></li>
+                                    <li id="li_2_${response.data[i].id}"></li>
+                                    <li id="li_3_${response.data[i].id}"></li>
                                     <li><span class="text-secondary"><b>Assigned Date:</b>  ${response.data[i].date_assigned}</span></li>
                                 </ul>
                                 </div>

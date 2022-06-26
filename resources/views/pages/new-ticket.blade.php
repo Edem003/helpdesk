@@ -41,8 +41,7 @@
                                             <option value="2">PVLMD</option>
                                             <option value="4">SMD</option>
                                             <option value="3">LRD</option>
-                                            <option value="5">IT Unit</option>
-                                            <option value="6">Audit Unit</option>
+                                            <option value="14">Corporate</option>
                                         </select>
                                     </div>
                                     <div class="d-flex mb-3">

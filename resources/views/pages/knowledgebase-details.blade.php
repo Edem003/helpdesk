@@ -74,7 +74,7 @@
                           </div>
                         </a>
                       </div>
-                      <h6 class="small text-warning mb-3 mt-5">TRENDING QUESTIONS</h6>
+                      <h6 class="small text-warning mb-3 mt-5">POPULAR QUESTIONS</h6>
                       <div class="chart-main activity-timeline update-line">
                         {!! session()->get('trending_question_div') !!}
                       </div>

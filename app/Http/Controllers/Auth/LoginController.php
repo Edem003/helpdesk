@@ -116,7 +116,10 @@ class LoginController extends Controller
                 $user_email = $result['data'][0]['email'];
                 $user_phone = $result['data'][0]['phone'];
                 $user_region = $result['data'][0]['region'];
+                $user_region_id = $result['data'][0]['region_id'];
                 $user_status = $result['data'][0]['status'];
+                $user_color = $result['data'][0]['color'];
+                $user_lockscreen = $result['data'][0]['lockscreen'];
 
                 $request->session()->put('id',$user_id);
                 $request->session()->put('username',$username);
@@ -127,7 +130,10 @@ class LoginController extends Controller
                 $request->session()->put('email',$user_email);
                 $request->session()->put('phone',$user_phone);
                 $request->session()->put('region',$user_region);
+                $request->session()->put('region_id',$user_region_id);
                 $request->session()->put('status',$user_status);
+                $request->session()->put('color',$user_color);
+                $request->session()->put('lockscreen',$user_lockscreen);
 
                 //check login
                 $check_login = $result['data'];

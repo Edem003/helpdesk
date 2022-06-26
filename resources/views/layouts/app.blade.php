@@ -8,7 +8,12 @@
     <meta name="keywords" content="admin template, viho admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="pixelstrap">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @if (session()->get('lockscreen') == 'Auto')
     <meta http-equiv="refresh" content="900;url=lockscreen" />
+    @endif
+    @if (session()->get('lockscreen') == 0)
+    <meta http-equiv="refresh" content="900;url=lockscreen" />
+    @endif
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
     <title>IT Helpdesk :: {{ $page_name }}</title>
@@ -16,9 +21,9 @@
     <link rel="stylesheet" type="text/css" href="vendor/fontawesome-free/css/all.css">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
     <!-- ico-font-->
-    <link rel="stylesheet" type="text/css" href="assets/css/icofont.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/icofont/icofont.css">
     <!-- Themify icon-->
-    <link rel="stylesheet" type="text/css" href="assets/css/themify.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/themify-icons/themify.css">
     <!-- Flag icon-->
     <link rel="stylesheet" type="text/css" href="assets/css/flag-icon.css">
     <!-- Feather icon-->
@@ -44,7 +49,7 @@
     <link rel="stylesheet" href="vendor/datatables/dataTables.bootstrap4.min.css">
 
     <!-- Plugins css start-->
-    <link rel="stylesheet" type="text/css" href="../assets/css/photoswipe.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/photoswipe.css">
     <!-- Plugins css Ends-->
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -52,11 +57,25 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
   </head>
-  
-  @if((date('H') >= 10) AND (date('H') <= 15))
-  <body class="custom-scrollbar" style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
-  @else
-  <body class="custom-scrollbar dark-only" style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
+  @if (session()->get('color') == 0)
+    @if((date('H') >= 10) AND (date('H') <= 15))
+    <body class="custom-scrollbar" style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
+    @else
+    <body class="custom-scrollbar dark-only" style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
+    @endif
+  @endif
+  @if (session()->get('color') == 'Auto')
+    @if((date('H') >= 10) AND (date('H') <= 15))
+    <body class="custom-scrollbar" style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
+    @else
+    <body class="custom-scrollbar dark-only" style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
+    @endif
+  @endif
+  @if (session()->get('color') == 'Light')
+    <body class="custom-scrollbar" style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
+  @endif
+  @if (session()->get('color') == 'Dark')
+    <body class="custom-scrollbar dark-only" style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
   @endif
     <!-- Loader starts-->
     <div class="loader-wrapper">
@@ -80,9 +99,24 @@
               <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
               <li><a class="text-dark" href="lockscreen"><i data-feather="lock"></i></a></li>
               <li>
-                @if((date('H') >= 10) && (date('H') <= 15))
-                <div class="mode"><i class="fa fa-moon-o"></i></div>
-                @else
+                @if (session()->get('color') == 0)
+                    @if((date('H') >= 10) AND (date('H') <= 15))
+                    <div class="mode"><i class="fa fa-moon-o"></i></div>
+                    @else
+                    <div class="mode"><i class="fa fa-lightbulb-o"></i></div>
+                    @endif
+                @endif
+                @if (session()->get('color') == 'Auto')
+                    @if((date('H') >= 10) AND (date('H') <= 15))
+                    <div class="mode"><i class="fa fa-moon-o"></i></div>
+                    @else
+                    <div class="mode"><i class="fa fa-lightbulb-o"></i></div>
+                    @endif
+                @endif
+                @if (session()->get('color') == 'Light')
+                    <div class="mode"><i class="fa fa-moon-o"></i></div>
+                @endif
+                @if (session()->get('color') == 'Dark')
                 <div class="mode"><i class="fa fa-lightbulb-o"></i></div>
                 @endif
               </li>
@@ -113,7 +147,7 @@
                   </li>
                   <li class="dropdown"><a class="nav-link menu-title link-nav" href="dashboard"><i data-feather="home"></i><span>Dashboard</span></a></li>
                   <li class="dropdown"><a class="nav-link menu-title link-nav" href="new-ticket"><i data-feather="edit"></i><span>Add Ticket</span></a></li>
-                  @if (session()->get('role') == 'Administrator')
+                  @if ((session()->get('role') == 'Administrator') OR (session()->get('role') == 'Super Administrator'))
                   <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="zap"></i><span>Tickets</span></a>
                     <ul class="nav-submenu menu-content">
                       <li><a href="open-ticket">Open</a></li>
@@ -125,7 +159,7 @@
                   </li>
                   @endif
                   <li class="dropdown"><a class="nav-link menu-title link-nav" href="my-tasks"><i data-feather="check-square"></i><span>My Tasks</span></a></li>
-                  @if (session()->get('role') == 'Administrator')
+                  @if ((session()->get('role') == 'Administrator') OR (session()->get('role') == 'Super Administrator'))
                   <li class="dropdown"><a class="nav-link menu-title link-nav" href="staff-management"><i data-feather="users"></i><span>Staff Management</span></a></li>
                   @endif
                   <li class="dropdown"><a class="nav-link menu-title link-nav" href="summary-reports"><i data-feather="pie-chart"></i><span>Summary Reports</span></a></li>
@@ -135,7 +169,7 @@
                       <li><a href="manage-profile">Manage Profile</a></li>
                     </ul>
                   </li>
-                  @if (session()->get('role') == 'Administrator')
+                  @if ((session()->get('role') == 'Administrator') OR (session()->get('role') == 'Super Administrator'))
                   <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="list"></i><span>System Logs</span></a>
                     <ul class="nav-submenu menu-content">
                       <li><a href="ticket-logs">Ticket Logs</a></li>
@@ -322,6 +356,7 @@
       chart3.render();
 
     </script>
+
     <script type="text/javascript">
       var options7 = {
         chart: {
@@ -409,45 +444,271 @@
 
     chart7.render();
     </script>
+
+    <script type="text/javascript">
+      var options3 = {
+          chart: {
+              height:350,
+              type: 'bar',
+              fontFamily: ' SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+              toolbar:{
+              show: false
+              }
+          },
+          plotOptions: {
+              bar: {
+                  horizontal: false,
+                  endingShape: 'rounded',
+                  columnWidth: '55%',
+              },
+          },
+          dataLabels: {
+              enabled: false
+          },
+          stroke: {
+              show: true,
+              width: 2,
+              colors: ['transparent']
+          },
+          series: [{
+              name: 'Pending',
+              data: ["{{ session()->get('ds_pending_ticket_count_sa') }}", "{{ session()->get('s_pending_ticket_count_sa') }}", "{{ session()->get('h_pending_ticket_count_sa') }}", "{{ session()->get('n_pending_ticket_count_sa') }}"]
+          },
+          {
+              name: 'On-Hold',
+              data: ["{{ session()->get('ds_on_hold_ticket_count_sa') }}", "{{ session()->get('s_on_hold_ticket_count_sa') }}", "{{ session()->get('h_on_hold_ticket_count_sa') }}", "{{ session()->get('n_on_hold_ticket_count_sa') }}"]
+          },
+          {
+              name: 'Solved',
+              data: ["{{ session()->get('ds_solved_ticket_count_sa') }}", "{{ session()->get('s_solved_ticket_count_sa') }}", "{{ session()->get('h_solved_ticket_count_sa') }}", "{{ session()->get('n_solved_ticket_count_sa') }}"]
+          },
+          {
+              name: 'Closed',
+              data: ["{{ session()->get('ds_closed_ticket_count_sa') }}", "{{ session()->get('s_closed_ticket_count_sa') }}", "{{ session()->get('h_closed_ticket_count_sa') }}", "{{ session()->get('n_closed_ticket_count_sa') }}"]
+          }],
+          xaxis: {
+              categories: ['Desktop Support', 'Software', 'Hardware', 'Networking'],
+          },
+          yaxis: {
+              title: {
+                  text: ''
+              }
+          },
+          fill: {
+              opacity: 1
+
+          },
+          tooltip: {
+              y: {
+                  formatter: function (val) {
+                      return val
+                  }
+              }
+          },
+          colors:["#FFC107", "#A52835", vihoAdminConfig.primary, vihoAdminConfig.secondary]
+      }
+
+      var chart3 = new ApexCharts(
+          document.querySelector("#column-chart-department-sa"),
+          options3
+      );
+
+      chart3.render();
+
+    </script>
+
+    <script type="text/javascript">
+      var options7 = {
+        chart: {
+            height: 350,
+            type: 'line',
+            fontFamily: ' SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+            stacked: false,
+            toolbar:{
+              show: false
+            }
+        },
+        stroke: {
+            width: [0, 2, 5],
+            curve: 'smooth'
+        },
+        plotOptions: {
+            bar: {
+                columnWidth: '50%'
+            }
+        },
+        colors: ['#3A5794', '#A5C351', '#E14A84'],
+        series: [{
+            name: 'Desktop Support',
+            type: 'column',
+            data: ["{{ session()->get('ds_jan_ticket_count_sa') }}", "{{ session()->get('ds_feb_ticket_count_sa') }}", "{{ session()->get('ds_mar_ticket_count_sa') }}", "{{ session()->get('ds_apr_ticket_count_sa') }}", "{{ session()->get('ds_may_ticket_count_sa') }}", "{{ session()->get('ds_jun_ticket_count_sa') }}", "{{ session()->get('ds_jul_ticket_count_sa') }}", "{{ session()->get('ds_aug_ticket_count_sa') }}", "{{ session()->get('ds_sep_ticket_count_sa') }}", "{{ session()->get('ds_oct_ticket_count_sa') }}", "{{ session()->get('ds_nov_ticket_count_sa') }}", "{{ session()->get('ds_dec_ticket_count_sa') }}"]
+        }, {
+            name: 'Software',
+            type: 'area',
+            data: ["{{ session()->get('s_jan_ticket_count_sa') }}", "{{ session()->get('s_feb_ticket_count_sa') }}", "{{ session()->get('s_mar_ticket_count_sa') }}", "{{ session()->get('s_apr_ticket_count_sa') }}", "{{ session()->get('s_may_ticket_count_sa') }}", "{{ session()->get('s_jun_ticket_count_sa') }}", "{{ session()->get('s_jul_ticket_count_sa') }}", "{{ session()->get('s_aug_ticket_count_sa') }}", "{{ session()->get('s_sep_ticket_count_sa') }}", "{{ session()->get('s_oct_ticket_count_sa') }}", "{{ session()->get('s_nov_ticket_count_sa') }}", "{{ session()->get('s_dec_ticket_count_sa') }}"]
+        }, {
+            name: 'Hardware',
+            type: 'line',
+            data: ["{{ session()->get('h_jan_ticket_count_sa') }}", "{{ session()->get('h_feb_ticket_count_sa') }}", "{{ session()->get('h_mar_ticket_count_sa') }}", "{{ session()->get('h_apr_ticket_count_sa') }}", "{{ session()->get('h_may_ticket_count_sa') }}", "{{ session()->get('h_jun_ticket_count_sa') }}", "{{ session()->get('h_jul_ticket_count_sa') }}", "{{ session()->get('h_aug_ticket_count_sa') }}", "{{ session()->get('h_sep_ticket_count_sa') }}", "{{ session()->get('h_oct_ticket_count_sa') }}", "{{ session()->get('h_nov_ticket_count_sa') }}", "{{ session()->get('h_dec_ticket_count_sa') }}"]
+        }, {
+            name: 'Networking',
+            type: 'area',
+            data: ["{{ session()->get('n_jan_ticket_count_sa') }}", "{{ session()->get('n_feb_ticket_count_sa') }}", "{{ session()->get('n_mar_ticket_count_sa') }}", "{{ session()->get('n_apr_ticket_count_sa') }}", "{{ session()->get('n_may_ticket_count_sa') }}", "{{ session()->get('n_jun_ticket_count_sa') }}", "{{ session()->get('n_jul_ticket_count_sa') }}", "{{ session()->get('n_aug_ticket_count_sa') }}", "{{ session()->get('n_sep_ticket_count_sa') }}", "{{ session()->get('n_oct_ticket_count_sa') }}", "{{ session()->get('n_nov_ticket_count_sa') }}", "{{ session()->get('n_dec_ticket_count_sa') }}"]
+        }],
+        fill: {
+            opacity: [0.85,0.25,1],
+            gradient: {
+                inverseColors: false,
+                shade: 'light',
+                type: "vertical",
+                opacityFrom: 0.85,
+                opacityTo: 0.55,
+                stops: [0, 100, 100, 100]
+            }
+        },
+        labels: ["01/01/{{ date('Y') }}","02/01/{{ date('Y') }}","03/01/{{ date('Y') }}","04/01/{{ date('Y') }}","05/01/{{ date('Y') }}","06/01/{{ date('Y') }}","07/01/{{ date('Y') }}","08/01/{{ date('Y') }}","09/01/{{ date('Y') }}","10/01/{{ date('Y') }}","11/01/{{ date('Y') }}","12/01/{{ date('Y') }}"],
+        markers: {
+            size: 0
+        },
+        xaxis: {
+            type:'datetime'
+        },
+        yaxis: {
+            min: 0
+        },
+        tooltip: {
+            shared: true,
+            intersect: false,
+            y: {
+                formatter: function (y) {
+                    if(typeof y !== "undefined") {
+                        return  y.toFixed(0) + " Ticket(s)";
+                    }
+                    return y;
+
+                }
+            }
+        },
+        legend: {
+            labels: {
+                useSeriesColors: true
+            },
+        },
+        colors:[vihoAdminConfig.primary,"#A52835",vihoAdminConfig.secondary,"#FFC107"]
+    }
+
+    var chart7 = new ApexCharts(
+        document.querySelector("#mixed-dept-chart-sa"),
+        options7
+    );
+
+    chart7.render();
+    </script>
+
+    <script type="text/javascript">
+      var options2 = {
+        chart: {
+            height: 350,
+            fontFamily: ' SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+            type: 'bar',
+            toolbar:{
+              show: false
+            }
+        },
+        plotOptions: {
+            bar: {
+                horizontal: true,
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        series: [{
+            data: ["{{ session()->get('gar_ticket_count') }}", "{{ session()->get('eas_ticket_count') }}", "{{ session()->get('ash_ticket_count') }}", "{{ session()->get('cen_ticket_count') }}", "{{ session()->get('wen_ticket_count') }}", "{{ session()->get('wrn_ticket_count') }}", "{{ session()->get('vol_ticket_count') }}", "{{ session()->get('oti_ticket_count') }}", "{{ session()->get('aha_ticket_count') }}", "{{ session()->get('boe_ticket_count') }}", "{{ session()->get('bon_ticket_count') }}", "{{ session()->get('sav_ticket_count') }}", "{{ session()->get('nor_ticket_count') }}", "{{ session()->get('noe_ticket_count') }}", "{{ session()->get('upe_ticket_count') }}", "{{ session()->get('upw_ticket_count') }}"]
+        }],
+        xaxis: {
+            categories: ['Greater Accra', 'Eastern', 'Ashanti', 'Central', 'Western', 'Western-North', 'Volta', 'Oti', 'Ahafo', 'Bono East', 'Bono', 'Savannah', 'Northern', 'North-East', 'Upper East', 'Upper West'],
+        },
+        colors:[vihoAdminConfig.primary]
+    }
+
+    var chart2 = new ApexCharts(
+        document.querySelector("#region-bar"),
+        options2
+    );
+
+    chart2.render();
+
+    </script>
     @endif
 
     @if ($page_name == 'Staff Management')
-    <script src="js/staff-management.js"></script>
+      @if (session()->get('role') == 'Administrator')
+      <script src="js/staff-management.js"></script>
+      @endif
+      @if (session()->get('role') == 'Super Administrator')
+      <script src="js/staff-management-sa.js"></script>
+      @endif
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="js/datatables.js"></script>
     @endif
 
     @if ($page_name == 'Open Ticket')
-    <script src="js/open-tickets.js"></script>
+      @if (session()->get('role') == 'Administrator')
+      <script src="js/open-tickets.js"></script>
+      @endif
+      @if (session()->get('role') == 'Super Administrator')
+      <script src="js/open-tickets-sa.js"></script>
+      @endif
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="js/datatables.js"></script>
     @endif
 
     @if ($page_name == 'Pending Ticket')
-    <script src="js/pending-tickets.js"></script>
+      @if (session()->get('role') == 'Administrator')
+      <script src="js/pending-tickets.js"></script>
+      @endif
+      @if (session()->get('role') == 'Super Administrator')
+      <script src="js/pending-tickets-sa.js"></script>
+      @endif
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="js/datatables.js"></script>
     @endif
 
     @if ($page_name == 'On-Hold Ticket')
-    <script src="js/on-hold-tickets.js"></script>
+      @if (session()->get('role') == 'Administrator')
+      <script src="js/on-hold-tickets.js"></script>
+      @endif
+      @if (session()->get('role') == 'Super Administrator')
+      <script src="js/on-hold-tickets-sa.js"></script>
+      @endif
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="js/datatables.js"></script>
     @endif
 
     @if ($page_name == 'Solved Ticket')
-    <script src="js/solved-tickets.js"></script>
+      @if (session()->get('role') == 'Administrator')
+      <script src="js/solved-tickets.js"></script>
+      @endif
+      @if (session()->get('role') == 'Super Administrator')
+      <script src="js/solved-tickets-sa.js"></script>
+      @endif
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="js/datatables.js"></script>
     @endif
 
     @if ($page_name == 'Closed Ticket')
-    <script src="js/closed-tickets.js"></script>
+      @if (session()->get('role') == 'Administrator')
+      <script src="js/closed-tickets.js"></script>
+      @endif
+      @if (session()->get('role') == 'Super Administrator')
+      <script src="js/closed-tickets-sa.js"></script>
+      @endif
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="js/datatables.js"></script>
@@ -466,7 +727,12 @@
     @endif
 
     @if ($page_name == 'Ticket Logs')
-    <script src="js/ticket-logs-ga.js"></script>
+      @if (session()->get('role') == 'Administrator')
+      <script src="js/ticket-logs.js"></script>
+      @endif
+      @if (session()->get('role') == 'Super Administrator')
+      <script src="js/ticket-logs-sa.js"></script>
+      @endif
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="js/datatables.js"></script>

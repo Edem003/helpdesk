@@ -113,7 +113,7 @@ class PasswordController extends Controller
         
                 $response = $credentials->getBody();
         
-                return redirect("change-password")->with(['success_message' => 'Password has been changed successfully']);
+                return redirect("welcome")->with(['success_message' => 'Password has been changed successfully']);
             }
             
             if ($result['data'] == null) {

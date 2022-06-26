@@ -43,13 +43,44 @@ $(document).ready(function()
                     }
                 })
 
-                function get_users${response.data[i].id}(val){
+                function get_user(val){
                     $.ajax({
                     type: "GET",
                     url: "select_option_users",
                     data:'department_id='+val,
                     success: function(data){
-                        $("#dept_users${response.data[i].id}").html(data);
+                        $("#dept_user").html(data);
+                    }
+                    });
+                  }
+
+                  function get_users(val){
+                    $.ajax({
+                    type: "GET",
+                    url: "select_option_users",
+                    data:'department_id='+val,
+                    success: function(data){
+                        $("#team_lead").html(data);
+                    }
+                    });
+                    
+                    $.ajax({
+                    type: "GET",
+                    url: "select_option_group",
+                    data:'department_id='+val,
+                    success: function(data){
+                        $("#dept_users").html(data);
+                    }
+                    });
+                  }
+
+                  function get_assigned_type${response.data[i].id}(val){
+                    $.ajax({
+                    type: "GET",
+                    url: "get_assigned_type",
+                    data:'assigned_type='+val,
+                    success: function(data){
+                        $("#option_type${response.data[i].id}").html(data);
                     }
                     });
                   }
@@ -138,8 +169,7 @@ $(document).ready(function()
                                                 <option value="PVLMD">PVLMD</option>
                                                 <option value="SMD">SMD</option>
                                                 <option value="LRD">LRD</option>
-                                                <option value="IT Unit">IT Unit</option>
-                                                <option value="Audit Unit">Audit Unit</option>
+                                                <option value="Corporate">Corporate</option>
                                             </select>
                                         </div>
                                         <div class="d-flex mb-3">
@@ -191,21 +221,14 @@ $(document).ready(function()
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="col-form-label pt-0" for="exampleInputEmail1">Department<span class="text-danger">*</span></label>
-                                        <select class="form-control" id="dept_name" name="department_id" onChange="get_users${response.data[i].id}(this.value);" required>
-                                        <option value="" disabled selected>-- select --</option>
-                                        <option value="2">Networking</option>
-                                        <option value="3">Software</option>
-                                        <option value="1">Hardware</option>
-                                        <option value="4">Desktop Support</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
                                         <label class="col-form-label pt-0" for="exampleInputEmail1">Assigned To<span class="text-danger">*</span></label>
-                                        <select class="form-control" id="dept_users${response.data[i].id}" name="assigned_userid" required>
+                                        <select class="form-control" id="dept_name" name="assigned_type" onChange="get_assigned_type${response.data[i].id}(this.value);" required>
                                         <option value="" disabled selected>-- select --</option>
+                                        <option value="Individual">Individual</option>
+                                        <option value="Group">Group</option>
                                         </select>
                                     </div>
+                                    <div class="mb-3" id="option_type${response.data[i].id}"></div>
                                     <div class="">
                                         <button class="btn btn-primary btn-update" type="submit"><i class="fas fa-refresh small"></i> Update</button>
                                     </div>

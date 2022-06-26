@@ -14,6 +14,12 @@
                         <div class="card-body">
                           <div class="email-app-sidebar left-bookmark">
                             <h6 class="small mb-4 text-warning">GENERATE REPORT</h6>
+                            @if(session()->has('print_errmsg'))
+                            <div class="text-danger alert alert-light dark alert-dismissible fade show" role="alert"><i data-feather="alert-triangle"></i>
+                              <span class="ms-4"> {{ session('print_errmsg') }}</span>
+                            </div>
+                            <br>
+                            @endif
                             <form method="POST" action="summary_report" class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
                             @csrf
                             <div class="form-group col-md-12">
@@ -42,8 +48,7 @@
                                 <option value="2">PVLMD</option>
                                 <option value="4">SMD</option>
                                 <option value="3">LRD</option>
-                                <option value="5">IT Unit</option>
-                                <option value="6">Audit Unit</option>
+                                <option value="14">Corporate</option>
                               </select>
                             </div>
                             <div class="form-group col-md-12">
@@ -92,12 +97,6 @@
                     <div class="card-body">
                       <div class="row">
                         <div class="col-xl-9">
-                          @if(session()->has('print_errmsg'))
-                          <div class="text-white alert alert-danger dark alert-dismissible fade show" role="alert"><i data-feather="alert-triangle"></i>
-                            <span class="ms-4"> {{ session('print_errmsg') }}</span>
-                          </div>
-                          <br>
-                          @endif
                         </div>
                       </div>
                       <div class="" id="printableArea">

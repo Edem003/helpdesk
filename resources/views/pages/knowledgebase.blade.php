@@ -17,7 +17,7 @@
                           </div>
                           <div class="col-xl-6 text-end">
                             <button class="btn btn-small btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fas fa-question-circle small"></i> Ask Question</button>
-                            <div class=" text-start modal fade modal-bookmark" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class=" text-start modal fade modal-bookmark small" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -112,7 +112,7 @@
                           </div>
                         </a>
                       </div>
-                      <h6 class="small text-warning mb-3 mt-5">TRENDING QUESTIONS</h6>
+                      <h6 class="small text-warning mb-3 mt-5">POPULAR QUESTIONS</h6>
                       <div class="chart-main activity-timeline update-line">
                         {!! session()->get('trending_question_div') !!}
                       </div>
